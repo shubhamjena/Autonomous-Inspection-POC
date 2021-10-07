@@ -95,3 +95,7 @@ You can also type:
 ```
 env |grep ROS
 ```
+
+#### Set up Gazebo ####
+Follow this tutorial to set up Gazebo with ROS2 <br />
+http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros
