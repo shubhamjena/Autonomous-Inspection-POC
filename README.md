@@ -104,7 +104,7 @@ sudo apt install ros-foxy-gazebo-ros-pkgs
 The detalied instructions on installing gazebo_ros_pkgs and testing the roz-gazebo integration are detailed [here](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros). <br />
 
 ### Prerequisities to get you started ###
-If you are completely new to ROS, I highly recommend you to go through the below tutorials in order, step by step. When you aredone, you will have deep understanding of the ROS2 Navigaton Stack and will be ready to implement these in you own projects.
+If you are completely new to ROS, I highly recommend you to go through the below tutorials in order, step by step. When you are done, you will have deep understanding of the ROS2 Navigaton Stack and will be ready to implement these in you own projects.
 
 - [Testing ROS2 and Gazebo Integration](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
 - [ROS2 Tutorials](https://docs.ros.org/en/rolling/Tutorials.html) 
