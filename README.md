@@ -96,9 +96,19 @@ You can also type:
 env |grep ROS
 ```
 
-### Install Gazebo ###
+### Setup Gazebo ###
 Install from debian packages (on Ubuntu) <br />
 ``` 
 sudo apt install ros-foxy-gazebo-ros-pkgs
 ```
 The detalied instructions on installing gazebo_ros_pkgs and testing the roz-gazebo integration are detailed [here](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros). <br />
+
+### Prerequisities to get you started ###
+If you are completely new to ROS, I highly recommend you to go through the below tutorials in order, step by step. When you aredone, you will have deep understanding of the ROS2 Navigaton Stack and will be ready to implement these in you own projects.
+
+- [Testing ROS2 and Gazebo Integration](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
+- [ROS2 Tutorials](https://docs.ros.org/en/rolling/Tutorials.html) 
+- [ROS2 Basics in 5 Days](https://www.theconstructsim.com/wp-content/uploads/2019/03/ROS2-IN-5-DAYS-e-book.pdf)
+- [Exploring ROS2 with wheeled robot - Youtube series](https://www.youtube.com/watch?v=T4iRJqESQAk&ab_channel=TheConstruct)
+- [The Ultimate Guide to the ROS 2 Navigation Stack](https://automaticaddison.com/the-ultimate-guide-to-the-ros-2-navigation-stack/)
+> **Note** Beginner level should suffice in the ealier stages and you can slowly build your skillset based on your requirements
