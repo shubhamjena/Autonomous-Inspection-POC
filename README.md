@@ -96,6 +96,9 @@ You can also type:
 env |grep ROS
 ```
 
-#### Set up Gazebo ####
-Follow this tutorial to set up Gazebo with ROS2 <br />
-http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros
+### Install Gazebo ###
+Install from debian packages (on Ubuntu) <br />
+``` 
+sudo apt install ros-foxy-gazebo-ros-pkgs
+```
+The detalied instructions on installing gazebo_ros_pkgs and testing the roz-gazebo integration are detailed [here](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros). <br />
