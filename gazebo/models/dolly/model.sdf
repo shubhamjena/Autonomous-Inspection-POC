@@ -357,5 +357,17 @@
 
     </plugin>
 
+  <!--
+        camera plugin
+    -->
+    <include>
+      <uri>model://camera_plugin</uri>
+      <pose>0.5 0.0 -0.1 0 1.57 0</pose>
+    </include>
+    <joint name="camera_joint" type="fixed">
+      <child>camera::link</child>
+      <parent>chassis</parent>
+    </joint>
+
   </model>
 </sdf>
