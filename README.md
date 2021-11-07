@@ -1,5 +1,5 @@
 # Autonomous-Inspection-POC
-Repository for the Development of an Autonomous Aircraft - Surface Inspection Robot
+Repository for the Development of an Autonomous wall-climbing Aircraft-Surface Inspection Robot
 
 ### Requirements
 Ubuntu 20.04 LTS <br />
