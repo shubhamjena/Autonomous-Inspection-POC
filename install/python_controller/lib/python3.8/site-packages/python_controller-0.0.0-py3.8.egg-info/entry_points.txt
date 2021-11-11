@@ -1,3 +1,0 @@
-[console_scripts]
-python_controller = python_controller.python_controller:main
-

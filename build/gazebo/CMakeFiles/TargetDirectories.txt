@@ -1,9 +1,0 @@
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/install/local.dir
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/install.dir
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/list_install_components.dir
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/rebuild_cache.dir
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/edit_cache.dir
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/test.dir
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/install/strip.dir
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/gazebo_uninstall.dir
-/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo/CMakeFiles/uninstall.dir
