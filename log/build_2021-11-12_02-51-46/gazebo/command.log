@@ -1,0 +1,4 @@
+Invoking command in '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo -- -j8 -l8
+Invoked command in '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo -- -j8 -l8
+Invoking command in '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo
+Invoked command in '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/gazebo

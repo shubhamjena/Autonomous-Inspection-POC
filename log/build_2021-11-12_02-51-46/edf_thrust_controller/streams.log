@@ -1,0 +1,21 @@
+[0.405s] Invoking command in '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/path_planning/edf_thrust_controller': PYTHONPATH=/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/edf_thrust_controller build --build-base /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build install --prefix /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller --record /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/install.log --single-version-externally-managed
+[0.589s] running egg_info
+[0.590s] writing ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/PKG-INFO
+[0.591s] writing dependency_links to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/dependency_links.txt
+[0.591s] writing entry points to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/entry_points.txt
+[0.591s] writing requirements to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/requires.txt
+[0.591s] writing top-level names to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/top_level.txt
+[0.621s] reading manifest file '../../build/edf_thrust_controller/edf_thrust_controller.egg-info/SOURCES.txt'
+[0.622s] writing manifest file '../../build/edf_thrust_controller/edf_thrust_controller.egg-info/SOURCES.txt'
+[0.622s] running build
+[0.622s] running build_py
+[0.622s] running install
+[0.623s] running install_lib
+[0.624s] running install_data
+[0.625s] running install_egg_info
+[0.626s] removing '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller-0.0.0-py3.8.egg-info' (and everything under it)
+[0.626s] Copying ../../build/edf_thrust_controller/edf_thrust_controller.egg-info to /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller-0.0.0-py3.8.egg-info
+[0.627s] running install_scripts
+[0.643s] Installing edf_thrust_controller_node script to /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/edf_thrust_controller
+[0.643s] writing list of installed files to '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/install.log'
+[0.675s] Invoked command in '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/path_planning/edf_thrust_controller' returned '0': PYTHONPATH=/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/edf_thrust_controller build --build-base /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build install --prefix /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller --record /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/install.log --single-version-externally-managed

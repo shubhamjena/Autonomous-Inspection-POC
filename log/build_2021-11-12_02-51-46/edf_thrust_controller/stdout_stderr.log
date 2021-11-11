@@ -1,0 +1,19 @@
+running egg_info
+writing ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/PKG-INFO
+writing dependency_links to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/dependency_links.txt
+writing entry points to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/entry_points.txt
+writing requirements to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/requires.txt
+writing top-level names to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/top_level.txt
+reading manifest file '../../build/edf_thrust_controller/edf_thrust_controller.egg-info/SOURCES.txt'
+writing manifest file '../../build/edf_thrust_controller/edf_thrust_controller.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../../build/edf_thrust_controller/edf_thrust_controller.egg-info to /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller-0.0.0-py3.8.egg-info
+running install_scripts
+Installing edf_thrust_controller_node script to /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/edf_thrust_controller
+writing list of installed files to '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/install.log'

@@ -1,0 +1,3 @@
+[console_scripts]
+edf_thrust_controller_node = edf_thrust_controller.edf_thrust_controller_node:main
+

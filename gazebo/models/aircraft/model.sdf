@@ -1,12 +1,23 @@
 <?xml version="1.0"?>
-<sdf version="1.6">
-    <model name="Aircraft">
-      <pose>0 0 0  0 0 0</pose>
+<sdf version="1.7">
+    <model name="cessna">
+      <!--pose>0 0 0  0 0 0</pose-->
       <static>true</static>
-      <link name="body">
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <mesh>
+             <uri>model://aircraft/meshes/cessnaOBJ.obj</uri>
+             <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </collision>
         <visual name="visual">
           <geometry>
-            <mesh><uri>file://aircraft/meshes/airplane.obj</uri></mesh>
+            <mesh>
+             <uri>model://aircraft/meshes/cessnaOBJ.obj</uri>
+             <scale>1 1 1</scale>
+            </mesh>
           </geometry>
         </visual>
       </link>

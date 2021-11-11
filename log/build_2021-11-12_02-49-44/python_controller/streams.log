@@ -1,0 +1,37 @@
+[0.403s] Invoking command in '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/path_planning/python_controller': PYTHONPATH=/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/python_controller build --build-base /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build install --prefix /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller --record /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/install.log --single-version-externally-managed
+[0.583s] running egg_info
+[0.583s] creating ../../build/python_controller/python_controller.egg-info
+[0.583s] writing ../../build/python_controller/python_controller.egg-info/PKG-INFO
+[0.584s] writing dependency_links to ../../build/python_controller/python_controller.egg-info/dependency_links.txt
+[0.584s] writing entry points to ../../build/python_controller/python_controller.egg-info/entry_points.txt
+[0.584s] writing requirements to ../../build/python_controller/python_controller.egg-info/requires.txt
+[0.584s] writing top-level names to ../../build/python_controller/python_controller.egg-info/top_level.txt
+[0.585s] writing manifest file '../../build/python_controller/python_controller.egg-info/SOURCES.txt'
+[0.616s] reading manifest file '../../build/python_controller/python_controller.egg-info/SOURCES.txt'
+[0.617s] writing manifest file '../../build/python_controller/python_controller.egg-info/SOURCES.txt'
+[0.617s] running build
+[0.617s] running build_py
+[0.617s] creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build
+[0.617s] creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build/lib
+[0.618s] creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build/lib/python_controller
+[0.618s] copying python_controller/python_controller.py -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build/lib/python_controller
+[0.618s] copying python_controller/__init__.py -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build/lib/python_controller
+[0.618s] running install
+[0.618s] running install_lib
+[0.619s] creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python3.8/site-packages/python_controller
+[0.619s] copying /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build/lib/python_controller/python_controller.py -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python3.8/site-packages/python_controller
+[0.620s] copying /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build/lib/python_controller/__init__.py -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python3.8/site-packages/python_controller
+[0.620s] byte-compiling /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python3.8/site-packages/python_controller/python_controller.py to python_controller.cpython-38.pyc
+[0.621s] byte-compiling /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python3.8/site-packages/python_controller/__init__.py to __init__.cpython-38.pyc
+[0.621s] running install_data
+[0.622s] creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/share/ament_index
+[0.622s] creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/share/ament_index/resource_index
+[0.622s] creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/share/ament_index/resource_index/packages
+[0.622s] copying resource/python_controller -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/share/ament_index/resource_index/packages
+[0.622s] copying package.xml -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/share/python_controller
+[0.623s] running install_egg_info
+[0.624s] Copying ../../build/python_controller/python_controller.egg-info to /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python3.8/site-packages/python_controller-0.0.0-py3.8.egg-info
+[0.624s] running install_scripts
+[0.641s] Installing python_controller script to /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python_controller
+[0.641s] writing list of installed files to '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/install.log'
+[0.665s] Invoked command in '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/path_planning/python_controller' returned '0': PYTHONPATH=/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/python_controller build --build-base /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/build install --prefix /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/python_controller --record /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/python_controller/install.log --single-version-externally-managed

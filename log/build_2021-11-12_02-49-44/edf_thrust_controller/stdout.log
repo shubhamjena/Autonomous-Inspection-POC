@@ -1,0 +1,35 @@
+running egg_info
+creating ../../build/edf_thrust_controller/edf_thrust_controller.egg-info
+writing ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/PKG-INFO
+writing dependency_links to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/dependency_links.txt
+writing entry points to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/entry_points.txt
+writing requirements to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/requires.txt
+writing top-level names to ../../build/edf_thrust_controller/edf_thrust_controller.egg-info/top_level.txt
+writing manifest file '../../build/edf_thrust_controller/edf_thrust_controller.egg-info/SOURCES.txt'
+reading manifest file '../../build/edf_thrust_controller/edf_thrust_controller.egg-info/SOURCES.txt'
+writing manifest file '../../build/edf_thrust_controller/edf_thrust_controller.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build
+creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build/lib
+creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build/lib/edf_thrust_controller
+copying edf_thrust_controller/edf_thrust_controller_node.py -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build/lib/edf_thrust_controller
+copying edf_thrust_controller/__init__.py -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build/lib/edf_thrust_controller
+running install
+running install_lib
+creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller
+copying /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build/lib/edf_thrust_controller/edf_thrust_controller_node.py -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller
+copying /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/build/lib/edf_thrust_controller/__init__.py -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller
+byte-compiling /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller/edf_thrust_controller_node.py to edf_thrust_controller_node.cpython-38.pyc
+byte-compiling /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller/__init__.py to __init__.cpython-38.pyc
+running install_data
+creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/share/ament_index
+creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/share/ament_index/resource_index
+creating /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/share/ament_index/resource_index/packages
+copying resource/edf_thrust_controller -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/share/ament_index/resource_index/packages
+copying package.xml -> /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/share/edf_thrust_controller
+running install_egg_info
+Copying ../../build/edf_thrust_controller/edf_thrust_controller.egg-info to /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/python3.8/site-packages/edf_thrust_controller-0.0.0-py3.8.egg-info
+running install_scripts
+Installing edf_thrust_controller_node script to /home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/install/edf_thrust_controller/lib/edf_thrust_controller
+writing list of installed files to '/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/build/edf_thrust_controller/install.log'
