@@ -12,7 +12,7 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
 
     robot_name = 'gazebo'  # robot is the name of the package
-    world_file_name = 'empty_area.world'
+    world_file_name = 'iBot.world'
 
     # full  path to urdf and world file
 
