@@ -4,32 +4,19 @@
 #
 
 newmtl color
-Kd 0.7921569 0.8196079 0.9333333
+Kd 0 0.7529412 0
 Ks 0.5 0.5 0.5
 illum 2
 Ns 99.90109
 
-newmtl textured_rubber
-Kd 0.2941177 0.2941177 0.2941177
-map_Kd D:\STORAGE_SPACE\Robotics_POC\SolidWorks\iBot\diffuseblank.dds
-Ks 0.5 0.5 0.5
-map_bump -bm 10 D:\STORAGE_SPACE\Robotics_POC\SolidWorks\iBot\spark_bump.jpg
-bump D:\STORAGE_SPACE\Robotics_POC\SolidWorks\iBot\spark_bump.jpg
-illum 2
-Ns 1.486486
-
 newmtl color-2
-Kd 1 1 1
+Kd 0 1 0
 Ks 0.5 0.5 0.5
-map_bump -bm 2 D:\STORAGE_SPACE\Robotics_POC\SolidWorks\iBot\swcast_bump.jpg
-bump D:\STORAGE_SPACE\Robotics_POC\SolidWorks\iBot\swcast_bump.jpg
 illum 2
 Ns 99.90109
 
 newmtl color-3
-Kd 0 1 0
+Kd 0 0 0
 Ks 0.5 0.5 0.5
-map_bump -bm 2 D:\STORAGE_SPACE\Robotics_POC\SolidWorks\iBot\swcast_bump.jpg
-bump D:\STORAGE_SPACE\Robotics_POC\SolidWorks\iBot\swcast_bump.jpg
 illum 2
 Ns 99.90109

@@ -40,7 +40,7 @@ def generate_launch_description():
         # start gazebo, notice we are using libgazebo_ros_factory.so instead of libgazebo_ros_init.so
         # That is because only libgazebo_ros_factory.so contains the service call to /spawn_entity
         ExecuteProcess(
-            cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_factory.so', '-s', 'libgazebo_ros_force_system.so'],
+            cmd=['gazebo', '--verbose', '-u', world, '-s', 'libgazebo_ros_factory.so', '-s', 'libgazebo_ros_force_system.so'],
             output='screen'),
 
         # tell gazebo to spwan your robot in the world by calling service
