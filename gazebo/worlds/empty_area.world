@@ -6,5 +6,8 @@
       <include>
         <uri>model://ground_plane</uri>
       </include>
+      <include>
+        <uri>model://iBot</uri>
+      </include>
     </world>
   </sdf>
