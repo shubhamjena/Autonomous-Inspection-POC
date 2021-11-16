@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 
-<robot name="iBot" 
+<robot name="iBot"
   xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:include filename="iBot.gazebo" />
@@ -226,10 +226,6 @@
     <child link="imu"/>
     <parent link="chassis"/>
   </joint>
-
-  <!-- <gazebo reference="chassis">
-    <material>Gazebo/Blue</material>
-  </gazebo> -->
 
   <gazebo reference="camera">
     <material>Gazebo/Blue</material>

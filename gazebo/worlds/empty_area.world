@@ -1,5 +1,9 @@
 <sdf version="1.4">
     <world name="default">
+    <scene>
+     <ambient>0.5 0.5 0.5 1.0</ambient>
+     <shadows>0</shadows>
+    </scene>
       <include>
         <uri>model://sun</uri>
       </include>
@@ -7,6 +11,11 @@
         <uri>model://ground_plane</uri>
       </include>
       <include>
+        <pose>0 0 5 0 0 0</pose>
+        <uri>model://aircraft</uri>
+      </include>
+      <include>
+        <pose>5 0 7 0 0 1.57</pose>
         <uri>model://iBot</uri>
       </include>
     </world>
