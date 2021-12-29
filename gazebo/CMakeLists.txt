@@ -13,7 +13,7 @@ find_package(ament_cmake REQUIRED)
 # Generate .urdf files from .urdf.xacro files
 find_package(xacro REQUIRED)
 # Xacro files
-file(GLOB xacro_files models/urdf/*.urdf.xacro)
+file(GLOB xacro_files models/iBot/*.urdf.xacro)
 
 foreach(it ${xacro_files})
   # remove .xacro extension

@@ -1,12 +1,7 @@
-# Author: Jena Shubham
-# Date: December 25, 2021
-# Description: Launch iBot with EKF node
-
-
 import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.conditions import IfCondition, UnlessCondition
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription,ExecuteProcess
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
@@ -18,7 +13,9 @@ def generate_launch_description():
   pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')
   pkg_share = FindPackageShare(package='gazebo').find('gazebo')
   default_launch_dir = os.path.join(pkg_share, 'launch')
+  default_model_path = os.path.join(pkg_share, 'models/iBot/iBot.urdf')
   robot_localization_file_path = os.path.join(pkg_share, 'config/ekf.yaml')
+  robot_name_in_urdf = 'iBot'
 
   world_file_name = 'empty_area.world'
   world_path = os.path.join(pkg_share, 'worlds', world_file_name)
@@ -26,10 +23,18 @@ def generate_launch_description():
   # Launch configuration variables specific to simulation
   headless = LaunchConfiguration('headless')
   model = LaunchConfiguration('model')
+
   use_robot_state_pub = LaunchConfiguration('use_robot_state_pub')
+
   use_sim_time = LaunchConfiguration('use_sim_time')
   use_simulator = LaunchConfiguration('use_simulator')
   world = LaunchConfiguration('world')
+
+  # Declare the launch arguments
+  declare_model_path_cmd = DeclareLaunchArgument(
+    name='model',
+    default_value=default_model_path,
+    description='Absolute path to robot urdf file')
 
   declare_simulator_cmd = DeclareLaunchArgument(
     name='headless',
@@ -40,6 +45,7 @@ def generate_launch_description():
     name='use_robot_state_pub',
     default_value='True',
     description='Whether to start the robot state publisher')
+
 
   declare_use_sim_time_cmd = DeclareLaunchArgument(
     name='use_sim_time',
@@ -69,6 +75,7 @@ def generate_launch_description():
     PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')),
     condition=IfCondition(PythonExpression([use_simulator, ' and not ', headless])))
 
+
   # Start robot localization using an Extended Kalman filter
   start_robot_localization_cmd = Node(
     package='robot_localization',
@@ -76,7 +83,8 @@ def generate_launch_description():
     name='ekf_filter_node',
     output='screen',
     parameters=[robot_localization_file_path,
-    {'use_sim_time': use_sim_time}])
+    {'use_sim_time': use_sim_time}]
+    )
 
   # Subscribe to the joint states of the robot, and publish the 3D pose of each link.
   start_robot_state_publisher_cmd = Node(
@@ -85,17 +93,17 @@ def generate_launch_description():
     executable='robot_state_publisher',
     parameters=[{'use_sim_time': use_sim_time,
     'robot_description': Command(['xacro ', model])}],
-    arguments=[default_model_path])
+    arguments=[default_model_path],
+    remappings=[('/joint_states', '/iBot/joint_states')]
+    )
 
-  # Launch RViz
-#   start_rviz_cmd = Node(
-#     condition=IfCondition(use_rviz),
-#     package='rviz2',
-#     executable='rviz2',
-#     name='rviz2',
-#     output='screen',
-#     arguments=['-d', rviz_config_file])
 
+  spawn_entity = Node(
+      package='gazebo_ros',
+      executable='spawn_entity.py',
+      arguments=['-entity', 'iBot' , '-topic', 'robot_description', '-x', '5', '-y', '0', '-z', '7', '-R', '0', '-P', '0', '-Y', '1.57' ],
+      output='screen'
+  )
 
   # Create the launch description and populate
   ld = LaunchDescription()
@@ -113,8 +121,8 @@ def generate_launch_description():
   # Add any actions
   ld.add_action(start_gazebo_server_cmd)
   ld.add_action(start_gazebo_client_cmd)
+  ld.add_action(spawn_entity)
   ld.add_action(start_robot_localization_cmd)
   ld.add_action(start_robot_state_publisher_cmd)
-#   ld.add_action(start_rviz_cmd)
 
   return ld
