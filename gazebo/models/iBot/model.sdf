@@ -2,19 +2,19 @@
   <model name='iBot'>
     <link name='robot_footprint'>
       <inertial>
-        <pose>0.001974 0.000658 -0.000164 0 -0 0</pose>
+        <pose>0.001151 0 -0.150164 0 -0 0</pose>
         <mass>15.2</mass>
         <inertia>
-          <ixx>0.101308</ixx>
-          <ixy>-0.00148026</ixy>
-          <ixz>0.00162007</ixz>
-          <iyy>0.107255</iyy>
-          <iyz>0.000123355</iyz>
-          <izz>0.106936</izz>
+          <ixx>0.0626454</ixx>
+          <ixy>4.24915e-17</ixy>
+          <ixz>0.000434622</ixz>
+          <iyy>0.215688</iyy>
+          <iyz>1.50945e-32</iyz>
+          <izz>0.253126</izz>
         </inertia>
       </inertial>
       <collision name='robot_footprint_fixed_joint_lump__collision_collision'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0 -0.15 0 -0 0</pose>
         <geometry>
           <box>
             <size>0.4 0.2 0.1</size>
@@ -22,7 +22,7 @@
         </geometry>
       </collision>
       <collision name='robot_footprint_fixed_joint_lump__camera_colision_collision_1'>
-        <pose>0.2 0 -0.025 0 1.5708 0</pose>
+        <pose>0.175 0 -0.175 0 1.5708 0</pose>
         <geometry>
           <box>
             <size>0.05 0.05 0.05</size>
@@ -30,7 +30,7 @@
         </geometry>
       </collision>
       <collision name='robot_footprint_fixed_joint_lump__imu_colision_collision_2'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0 -0.15 0 -0 0</pose>
         <geometry>
           <box>
             <size>0.05 0.05 0.05</size>
@@ -38,30 +38,25 @@
         </geometry>
       </collision>
       <visual name='robot_footprint_fixed_joint_lump__chassis_visual_visual'>
-        <pose>0 -0.1 0 0 -0 0</pose>
+        <pose>0 0 -0.15 1.5708 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://iBot/meshes/chassis.obj</uri>
+            <uri>model://iBot/meshes/chassis3.obj</uri>
           </mesh>
         </geometry>
       </visual>
       <visual name='robot_footprint_fixed_joint_lump__camera_visual_visual_1'>
-        <pose>0.2 0 -0.025 0 1.5708 0</pose>
+        <pose>0.175 0 -0.175 1.5707 0 1.5708</pose>
         <geometry>
-          <box>
-            <size>0.05 0.05 0.05</size>
-          </box>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://iBot/meshes/camera.obj</uri>
+          </mesh>
         </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Blue</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
       </visual>
       <visual name='robot_footprint_fixed_joint_lump__imu_visual_visual_2'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0 -0.15 0 -0 0</pose>
         <geometry>
           <box>
             <size>0.05 0.05 0.05</size>
@@ -108,9 +103,8 @@
           <frame_name>camera</frame_name>
           <hack_baseline>0.07</hack_baseline>
         </plugin>
-        <pose>0.2 0 -0.025 3.14159 1.57079 3.14159</pose>
+        <pose>0.175 0 -0.175 3.14159 1.57079 3.14159</pose>
       </sensor>
-      <velocity_decay/>
       <velocity_decay/>
       <sensor name='imu_sensor' type='imu'>
         <plugin name='imu' filename='libgazebo_ros_imu_sensor.so'>
@@ -177,20 +171,22 @@
             </z>
           </linear_acceleration>
         </imu>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0 -0.15 0 -0 0</pose>
       </sensor>
       <gravity>1</gravity>
       <velocity_decay/>
     </link>
     <joint name='back_left_wheel_joint' type='revolute'>
-      <pose relative_to='robot_footprint'>-0.175 0.15 -0.025 0 -0 0</pose>
+      <pose relative_to='robot_footprint'>-0.175 0.16 -0.175 0 -0 0</pose>
       <parent>robot_footprint</parent>
-      <child>back_left_wheel</child>
+      <child>back_left_wheel_link</child>
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
           <lower>-1e+16</lower>
           <upper>1e+16</upper>
+          <effort>1000</effort>
+          <velocity>1000</velocity>
         </limit>
         <dynamics>
           <damping>1</damping>
@@ -200,48 +196,50 @@
         </dynamics>
       </axis>
     </joint>
-    <link name='back_left_wheel'>
+    <link name='back_left_wheel_link'>
       <pose relative_to='back_left_wheel_joint'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>0 0 0 0 1.5707 1.5707</pose>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <mass>5</mass>
         <inertia>
-          <ixx>0.0285</ixx>
+          <ixx>0.0236979</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.0285</iyy>
+          <iyy>0.0236979</iyy>
           <iyz>0</iyz>
-          <izz>0.0391</izz>
+          <izz>0.0390625</izz>
         </inertia>
       </inertial>
-      <collision name='back_left_wheel_collision'>
-        <pose>0 0 0 -1.5707 1.5708 0</pose>
+      <collision name='back_left_wheel_link_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <geometry>
           <cylinder>
-            <length>0.05</length>
+            <length>0.1</length>
             <radius>0.125</radius>
           </cylinder>
         </geometry>
       </collision>
-      <visual name='back_left_wheel_visual'>
-        <pose>0 -0.025 0 0 -0 0</pose>
+      <visual name='back_left_wheel_link_visual'>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://iBot/meshes/wheel.obj</uri>
+            <uri>model://iBot/meshes/wheel3.obj</uri>
           </mesh>
         </geometry>
       </visual>
     </link>
     <joint name='back_right_wheel_joint' type='revolute'>
-      <pose relative_to='robot_footprint'>-0.175 -0.15 -0.025 0 -0 0</pose>
+      <pose relative_to='robot_footprint'>-0.175 -0.16 -0.175 0 -0 0</pose>
       <parent>robot_footprint</parent>
-      <child>back_right_wheel</child>
+      <child>back_right_wheel_link</child>
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
           <lower>-1e+16</lower>
           <upper>1e+16</upper>
+          <effort>1000</effort>
+          <velocity>1000</velocity>
         </limit>
         <dynamics>
           <damping>1</damping>
@@ -251,48 +249,50 @@
         </dynamics>
       </axis>
     </joint>
-    <link name='back_right_wheel'>
+    <link name='back_right_wheel_link'>
       <pose relative_to='back_right_wheel_joint'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>0 0 0 0 1.5707 1.5707</pose>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <mass>5</mass>
         <inertia>
-          <ixx>0.0285</ixx>
+          <ixx>0.0236979</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.0285</iyy>
+          <iyy>0.0236979</iyy>
           <iyz>0</iyz>
-          <izz>0.0391</izz>
+          <izz>0.0390625</izz>
         </inertia>
       </inertial>
-      <collision name='back_right_wheel_collision'>
-        <pose>0 0 0 -1.5707 1.5708 0</pose>
+      <collision name='back_right_wheel_link_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <geometry>
           <cylinder>
-            <length>0.05</length>
+            <length>0.1</length>
             <radius>0.125</radius>
           </cylinder>
         </geometry>
       </collision>
-      <visual name='back_right_wheel_visual'>
-        <pose>0 -0.025 0 0 -0 0</pose>
+      <visual name='back_right_wheel_link_visual'>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://iBot/meshes/wheel.obj</uri>
+            <uri>model://iBot/meshes/wheel3.obj</uri>
           </mesh>
         </geometry>
       </visual>
     </link>
     <joint name='front_left_wheel_joint' type='revolute'>
-      <pose relative_to='robot_footprint'>0.175 0.15 -0.025 0 -0 0</pose>
+      <pose relative_to='robot_footprint'>0.175 0.16 -0.175 0 -0 0</pose>
       <parent>robot_footprint</parent>
-      <child>front_left_wheel</child>
+      <child>front_left_wheel_link</child>
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
           <lower>-1e+16</lower>
           <upper>1e+16</upper>
+          <effort>1000</effort>
+          <velocity>1000</velocity>
         </limit>
         <dynamics>
           <damping>1</damping>
@@ -302,48 +302,50 @@
         </dynamics>
       </axis>
     </joint>
-    <link name='front_left_wheel'>
+    <link name='front_left_wheel_link'>
       <pose relative_to='front_left_wheel_joint'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>0 0 0 0 1.5707 1.5707</pose>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <mass>5</mass>
         <inertia>
-          <ixx>0.0285</ixx>
+          <ixx>0.0236979</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.0285</iyy>
+          <iyy>0.0236979</iyy>
           <iyz>0</iyz>
-          <izz>0.0391</izz>
+          <izz>0.0390625</izz>
         </inertia>
       </inertial>
-      <collision name='front_left_wheel_collision'>
-        <pose>0 0 0 -1.5707 1.5708 0</pose>
+      <collision name='front_left_wheel_link_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <geometry>
           <cylinder>
-            <length>0.05</length>
+            <length>0.1</length>
             <radius>0.125</radius>
           </cylinder>
         </geometry>
       </collision>
-      <visual name='front_left_wheel_visual'>
-        <pose>0 -0.025 0 0 -0 0</pose>
+      <visual name='front_left_wheel_link_visual'>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://iBot/meshes/wheel.obj</uri>
+            <uri>model://iBot/meshes/wheel3.obj</uri>
           </mesh>
         </geometry>
       </visual>
     </link>
     <joint name='front_right_wheel_joint' type='revolute'>
-      <pose relative_to='robot_footprint'>0.175 -0.15 -0.025 0 -0 0</pose>
+      <pose relative_to='robot_footprint'>0.175 -0.16 -0.175 0 -0 0</pose>
       <parent>robot_footprint</parent>
-      <child>front_right_wheel</child>
+      <child>front_right_wheel_link</child>
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
           <lower>-1e+16</lower>
           <upper>1e+16</upper>
+          <effort>1000</effort>
+          <velocity>1000</velocity>
         </limit>
         <dynamics>
           <damping>1</damping>
@@ -353,40 +355,40 @@
         </dynamics>
       </axis>
     </joint>
-    <link name='front_right_wheel'>
+    <link name='front_right_wheel_link'>
       <pose relative_to='front_right_wheel_joint'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>0 0 0 0 1.5707 1.5707</pose>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <mass>5</mass>
         <inertia>
-          <ixx>0.1</ixx>
+          <ixx>0.0236979</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.1</iyy>
+          <iyy>0.0236979</iyy>
           <iyz>0</iyz>
-          <izz>0.1</izz>
+          <izz>0.0390625</izz>
         </inertia>
       </inertial>
-      <collision name='front_right_wheel_collision'>
-        <pose>0 0 0 -1.5707 1.5708 0</pose>
+      <collision name='front_right_wheel_link_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <geometry>
           <cylinder>
-            <length>0.05</length>
+            <length>0.1</length>
             <radius>0.125</radius>
           </cylinder>
         </geometry>
       </collision>
-      <visual name='front_right_wheel_visual'>
-        <pose>0 -0.025 0 0 -0 0</pose>
+      <visual name='front_right_wheel_link_visual'>
+        <pose>0 0 0 1.5708 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://iBot/meshes/wheel.obj</uri>
+            <uri>model://iBot/meshes/wheel3.obj</uri>
           </mesh>
         </geometry>
       </visual>
     </link>
-    <plugin name='skid_steer_drive_controller' filename='libgazebo_ros_diff_drive.so'>
+    <plugin name='differential_drive_controller' filename='libgazebo_ros_diff_drive.so'>
       <ros>
         <namespace>iBot</namespace>
         <remapping>/cmd_vel:=cmd_vel</remapping>
@@ -397,21 +399,24 @@
       <odometry_frame>odom</odometry_frame>
       <left_joint>front_left_wheel_joint</left_joint>
       <left_joint>back_left_wheel_joint</left_joint>
-      <wheel_separation>0.4</wheel_separation>
-      <wheel_diameter>0.2</wheel_diameter>
+      <wheel_separation>0.32</wheel_separation>
+      <wheel_diameter>0.25</wheel_diameter>
       <right_joint>front_right_wheel_joint</right_joint>
       <right_joint>back_right_wheel_joint</right_joint>
-      <wheel_separation>0.4</wheel_separation>
-      <wheel_diameter>0.2</wheel_diameter>
-      <robot_base_frame>robot_footprint</robot_base_frame>
+      <wheel_separation>0.32</wheel_separation>
+      <wheel_diameter>0.25</wheel_diameter>
       <max_wheel_torque>20</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
       <publish_odom>1</publish_odom>
-      <publish_odom_tf>1</publish_odom_tf>
-      <publish_wheel_tf>1</publish_wheel_tf>
+      <publish_odom_tf>0</publish_odom_tf>
+      <publish_wheel_tf>0</publish_wheel_tf>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>robot_footprint</robot_base_frame>
       <odometry_source>world</odometry_source>
     </plugin>
-    <plugin name='iBot_joint_state' filename='libgazebo_ros_joint_state_publisher.so'>
+    <plugin name='joint_state_publisher' filename='libgazebo_ros_joint_state_publisher.so'>
       <ros>
+        <namespace>iBot</namespace>
         <remapping>~/out:=joint_states</remapping>
       </ros>
       <update_rate>30</update_rate>

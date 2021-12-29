@@ -17,7 +17,7 @@ def generate_launch_description():
 
     world = os.path.join(get_package_share_directory(robot_name), 'worlds', world_file_name)
 
-    urdf = os.path.join(get_package_share_directory(robot_name), 'urdf', 'iBot.urdf')
+    urdf = os.path.join(get_package_share_directory(robot_name), 'models/urdf', 'iBot.urdf')
 
     # read urdf contents because to spawn an entity in
     # gazebo we need to provide entire urdf as string on  command line

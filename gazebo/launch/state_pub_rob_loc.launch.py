@@ -1,6 +1,6 @@
 import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription,ExecuteProcess
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration, PythonExpression
@@ -13,7 +13,7 @@ def generate_launch_description():
   pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')
   pkg_share = FindPackageShare(package='gazebo').find('gazebo')
   default_launch_dir = os.path.join(pkg_share, 'launch')
-  default_model_path = os.path.join(pkg_share, 'urdf/iBot.urdf')
+  default_model_path = os.path.join(pkg_share, 'models/urdf/iBot.urdf')
   robot_localization_file_path = os.path.join(pkg_share, 'config/ekf.yaml')
   robot_name_in_urdf = 'iBot'
 #   default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
@@ -84,6 +84,12 @@ def generate_launch_description():
     PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')),
     condition=IfCondition(PythonExpression([use_simulator, ' and not ', headless])))
 
+  #lauch gazebo
+  # spawn_robot = ExecuteProcess(
+  #   cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_factory.so', world_path],
+  #   output='screen'
+  #)
+
   # Start robot localization using an Extended Kalman filter
   start_robot_localization_cmd = Node(
     package='robot_localization',
@@ -91,7 +97,8 @@ def generate_launch_description():
     name='ekf_filter_node',
     output='screen',
     parameters=[robot_localization_file_path,
-    {'use_sim_time': use_sim_time}])
+    {'use_sim_time': use_sim_time}]
+    )
 
   # Subscribe to the joint states of the robot, and publish the 3D pose of each link.
   start_robot_state_publisher_cmd = Node(
@@ -100,7 +107,9 @@ def generate_launch_description():
     executable='robot_state_publisher',
     parameters=[{'use_sim_time': use_sim_time,
     'robot_description': Command(['xacro ', model])}],
-    arguments=[default_model_path])
+    arguments=[default_model_path],
+    remappings=[('/joint_states', '/iBot/joint_states')]
+    )
 
   # Launch RViz
 #   start_rviz_cmd = Node(
@@ -111,6 +120,13 @@ def generate_launch_description():
 #     output='screen',
 #     arguments=['-d', rviz_config_file])
 
+
+  spawn_entity = Node(
+      package='gazebo_ros',
+      executable='spawn_entity.py',
+      arguments=['-entity', 'iBot' , '-topic', 'robot_description', '-x', '5', '-y', '0', '-z', '7', '-R', '0', '-P', '0', '-Y', '1.57' ],
+      output='screen'
+  )
 
   # Create the launch description and populate
   ld = LaunchDescription()
@@ -128,8 +144,12 @@ def generate_launch_description():
   # Add any actions
   ld.add_action(start_gazebo_server_cmd)
   ld.add_action(start_gazebo_client_cmd)
+  #ld.add_action(spawn_robot)
+  ld.add_action(spawn_entity)
   ld.add_action(start_robot_localization_cmd)
   ld.add_action(start_robot_state_publisher_cmd)
+
+
 #   ld.add_action(start_rviz_cmd)
 
   return ld
