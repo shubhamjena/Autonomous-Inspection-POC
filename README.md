@@ -10,13 +10,14 @@ Gazebo 11.x <br />
 Step by step instructions to install Ubuntu, ROS2 and Gazebo are provided in the [Installation_Guide](docs/Installation_Guide.md)
 
 ### Launching the Simulation
-1. Create a ROS workspace on your local PC as shown below
+1. Create a ROS workspace on your local PC as shown below![ros2_ws](https://user-images.githubusercontent.com/17514325/147805025-b98bc8a2-4308-45b0-9287-939e4ae8dfe2.png)
 2. Clone the Autonomous-Inspection-POC repository to the /src directory of your ROS workspace
-3. Open .bashrc file (type *gedit ~/.bashrc* in a terminal), add the following lines at the bottom and save the file.
-4. Open a terminal, cd to your ROS workspace and build it (type *colcon build*)
-5. Open a new terminal, cd to your ROS workspace and source it (type *. install local_setup.bash*)
-6. Execute the iBot.launch.py launch file to launch gazebo and spawn the robot: (*ros2 launch gazebo iBot.launch.py*)
-7. Repeat step 5. and execute the ibot_control.Launch.py launch file to make the robot move (*ros2 launch ibot_control ibot_control.launch.py*)
+3. Open .bashrc file (type $ *gedit ~/.bashrc* in a terminal), add the following lines at the bottom and save the file.![bashrc](https://user-images.githubusercontent.com/17514325/147805043-37916271-df87-4e27-a496-2d24e306c78a.png)
+
+4. Open a terminal, cd to your ROS workspace and build it ($ *colcon build*)
+5. Open a new terminal, cd to your ROS workspace and source it ($ *. install local_setup.bash*)
+6. Execute the iBot.launch.py launch file to launch gazebo and spawn the robot: ($ *ros2 launch gazebo iBot.launch.py*)
+7. Repeat step 5. and execute the ibot_control.Launch.py launch file to make the robot move ($ *ros2 launch ibot_control ibot_control.launch.py*)
 
 ### Prerequisities to get you started ###
 If you are completely new to ROS, I highly recommend you to go through the below tutorials in order, step by step. When you are done, you will have deep understanding of the ROS2 Navigaton Stack and will be ready to implement these in you own projects.
