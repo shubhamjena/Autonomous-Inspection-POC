@@ -72,7 +72,7 @@
           <remapping>camera/camera_info:=/iBot/camera/image/camera_info</remapping>
         </ros>
         <camera_name>camera</camera_name>
-        <frame_name>camera</frame_name>
+        <frame_name>camera_frame</frame_name>
         <hack_baseline>0.07</hack_baseline>
       </plugin>
     </sensor>

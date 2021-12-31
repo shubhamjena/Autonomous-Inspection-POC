@@ -153,6 +153,13 @@
     <child link="camera"/>
   </joint>
 
+  <link name="camera_frame"/>
+
+  <joint name="camera_frame_joint" type="fixed">
+    <origin xyz="${camera_length/2} 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+    <parent link="camera"/>
+    <child link="camera_frame"/>
+  </joint>
 
   <!-- ************************** IMU *************************** -->
   <link name="imu">
