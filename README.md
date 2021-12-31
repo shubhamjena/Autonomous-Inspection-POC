@@ -1,5 +1,6 @@
 # Autonomous-Inspection-POC
 Repository for the Development of an Autonomous wall-climbing Aircraft-Surface Inspection Robot
+![Screenshot from 2021-12-31 17-48-07](https://user-images.githubusercontent.com/17514325/147823219-0ed65438-8f72-406d-9f0c-2eac499a9758.png)
 
 ### Requirements
 Ubuntu 20.04 LTS <br />
