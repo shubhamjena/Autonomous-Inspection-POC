@@ -10,12 +10,12 @@ from std_msgs.msg import MultiArrayDimension
 from std_msgs.msg import Bool # can give string if needed
 from pandas import read_csv
 
-DATABASE='/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/feature_matching/DATABASE_test/'
-CAMERA_IMAGES='/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/feature_matching/CAMERA_IMAGES/'
-FEATURE_MATCHES='/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/feature_matching/FEATURE_MATCHES/'
+DATABASE='~/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching/DATABASE_test/'
+CAMERA_IMAGES='~/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching/CAMERA_IMAGES/'
+FEATURE_MATCHES='~/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching/FEATURE_MATCHES/'
 
 
-DATABASE_coordinates='/home/ki2/Desktop/ros2_ws/src/Autonomous-Inspection-POC/feature_matching/DATABASE_coordinates_test.csv'
+DATABASE_coordinates='~/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching/DATABASE_coordinates_test.csv'
 matches_publisher=[]
 B_feature_match=0
 

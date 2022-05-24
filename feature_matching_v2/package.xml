@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>feature_matching</name>
+  <name>feature_matching_v2</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="nbeena@todo.todo">nbeena</maintainer>
+  <maintainer email="atharva@todo.todo">atharva</maintainer>
   <license>TODO: License declaration</license>
 
   <test_depend>ament_copyright</test_depend>
@@ -14,6 +14,7 @@
 
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
   <depend>std_msgs</depend>
   <depend>cv_bridge</depend>
 

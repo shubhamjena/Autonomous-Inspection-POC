@@ -162,7 +162,7 @@ ekf_filter_node:
 
 # Starts the filter with the specified state. The state is given as a 15-D vector of doubles, in the same order
 # as the sensor configurations
-        initial_state: [5.0, 0.0, 0.0, 0.0, 0.0, 1.57, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        initial_state: [5.0, 0.0, 6.787573, 0.0, 0.0, 1.57, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
 # [ADVANCED]  The EKF and UKF models follow a standard predict/correct cycle. During prediction, if there is no
 # acceleration reference, the velocity at time t+1 is simply predicted to be the same as the velocity at time t. During

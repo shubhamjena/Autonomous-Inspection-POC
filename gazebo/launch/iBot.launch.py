@@ -17,8 +17,10 @@ def generate_launch_description():
   robot_localization_file_path = os.path.join(pkg_share, 'config/ekf.yaml')
   robot_name_in_urdf = 'iBot'
 
-  world_file_name = 'empty_area.world'
+  world_file_name = 'world_with_spotlights.world'
+  # world_file_name = 'empty_world_with_spotlights.world'
   world_path = os.path.join(pkg_share, 'worlds', world_file_name)
+  # world_path = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/gazebo/worlds/empty_world_with_spotlights.world'
 
   # Launch configuration variables specific to simulation
   headless = LaunchConfiguration('headless')
