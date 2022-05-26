@@ -8,7 +8,9 @@ import random as rng
 from rclpy.node import Node
 from cv_bridge import CvBridge
 
+from cv2 import Mat
 from sensor_msgs.msg import Image
+from geometry_msgs.msg import Vector3
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import MultiArrayDimension
 from std_msgs.msg import Bool  # can give string if needed
@@ -21,6 +23,8 @@ paths = {
     'database_cooredinates': '~/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching/DATABASE_coordinates_test.csv',
 }
 
-matches_msg = []
-B_feature_match = 0
-filtered_image = Image
+match_status = Bool()
+ekf_output = Odometry()
+controller_output = Odometry()
+filtered_img = Image()
+matched_pose = Vector3()

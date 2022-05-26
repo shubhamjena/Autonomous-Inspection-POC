@@ -14,7 +14,7 @@ class iBotSteer(Node):
 
     def timer_callback(self):
         twist = Twist()
-        twist.linear.x = 0.0
+        twist.linear.x = 0.02
         self.publisher_.publish(twist)
         self.get_logger().info("Publishing: Vx of %0.2f m/s" % (twist.linear.x))
 
@@ -25,10 +25,6 @@ def main(args=None):
     ibot_steer = iBotSteer()
 
     rclpy.spin(ibot_steer)
-
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
     ibot_steer.destroy_node()
     rclpy.shutdown()
 

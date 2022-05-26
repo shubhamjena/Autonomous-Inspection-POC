@@ -1,0 +1,23 @@
+newmtl Grand Avenue_0b0597c8-ef8d-4f00-8bce-7b93e521037e
+Kd 0.459 0.459 0.459
+d 1.000
+newmtl Island Moment_922d3656-c76b-4738-b46a-1d24fa4c134b
+Kd 1.000 1.000 1.000
+d 1.000
+map_Kd image4.jpg
+newmtl Melody_80a74968-d0e7-49cc-a50c-6c6f564f711a
+Kd 1.000 1.000 1.000
+d 1.000
+map_Kd image3.jpg
+newmtl Timeless Beauty_92069863-5629-4b0c-9b28-ac3dc3cd1e28
+Kd 1.000 1.000 1.000
+d 1.000
+map_Kd image5.jpg
+newmtl Pyramid_93edd531-56aa-41d8-b227-22d3ccc89e76
+Kd 1.000 1.000 1.000
+d 1.000
+map_Kd image7.jpg
+newmtl Luna_caf662e1-9f22-4387-9ff0-f0e3a0f27623
+Kd 1.000 1.000 1.000
+d 1.000
+map_Kd image8.jpg
