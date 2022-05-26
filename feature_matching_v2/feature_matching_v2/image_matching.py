@@ -40,14 +40,14 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
 
     #* IMAGE MATCHING USING HISTOGRAM AND DISTANCE THRESHOLDING
 
-    data_dir = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/dataset'
+    data_dir = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/hsv_dataset'
     os.listdir(data_dir)
 
     for file in os.listdir(data_dir):
         img_path = os.path.join(data_dir, file)
-        data_img = cv2.imread(img_path)
-        resized_img = cv2.resize(data_img, dim, interpolation = cv2.INTER_AREA)
-        hsv_img = cv2.cvtColor(resized_img, cv2.COLOR_BGR2HSV)
+        hsv_img = cv2.imread(img_path)
+        # resized_img = cv2.resize(data_img, dim, interpolation = cv2.INTER_AREA)
+        # hsv_img = cv2.cvtColor(resized_img, cv2.COLOR_BGR2HSV)
         image_name = file.split('.')[0]
         dataset_image = dataset_coordinates.loc[dataset_coordinates['Image_Id'] == image_name]
         image_coordinates = [
@@ -94,7 +94,7 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
 
     distance = math.sqrt(np.sum(np.square(np.array(closest_img_coordinate) - np.array(robot_coordinates))))
     if distance > DISTANCE_THRESHOLD:
-        print([robot_coordinates, closest_img_coordinate, distance])
+        # print([robot_coordinates, closest_img_coordinate, distance])
         return [], []
     else:
         return closest_img_coordinate, closest_img_name

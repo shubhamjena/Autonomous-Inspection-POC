@@ -51,7 +51,9 @@ def camera_image_callback(self, data):
     if count_pass and length_pass:
         closest_coords, closest_name = MatchImageHistogram(camera_img, '', robot_coordinates)
         if closest_name == []:
-            matched_pose =Vector3()
+            matched_pose.x = float(-1000)
+            matched_pose.y = float(-1000)
+            matched_pose.z = float(-1000)
             print('rejected pose due to distance > threshold')
         else:
             print(closest_coords + [closest_name])
@@ -59,41 +61,36 @@ def camera_image_callback(self, data):
             matched_pose.y = float(closest_coords[1])
             matched_pose.z = float(closest_coords[2])
     else:
-        matched_pose = Vector3()
+        matched_pose.x = float(-1000)
+        matched_pose.y = float(-1000)
+        matched_pose.z = float(-1000)
 
 
 def odom_callback(self, data):
     global ekf_output
     ekf_output = data
-    # self.get_logger().info("odom callback")
-    # print("Odom Callback")
-    # print(data.pose.pose.position)
-    # print('\n')
 
 def ibot_odom_callback(self, data):
     global controller_output
     controller_output = data
-    # self.get_logger().info("ibot odom callback")
-    # print("iBot odom Callback")
-    # print(data.pose.pose.position)
-    # print('\n')
 
 def match_status_timer_callback(self):
     global match_status
-    if matched_pose:
+    if not(matched_pose.x == -1000 and matched_pose.y == -1000 and matched_pose.z == -1000):
         match_status.data = True
     self.match_status_pub.publish(match_status)
     match_status.data = False
 
 def match_position_timer_callback(self):
     global matched_pose
-    if matched_pose:
+    if not(matched_pose.x == -1000 and matched_pose.y == -1000 and matched_pose.z == -1000):
         self.match_position_pub.publish(matched_pose)
-    matched_pose = Vector3()
+    matched_pose.x = float(-1000)
+    matched_pose.y = float(-1000)
+    matched_pose.z = float(-1000)
 
 def filtered_image_timer_callback(self):
     global filtered_img
-    # pub_img = self.cvBridge.cv2_to_imgmsg(cvim=filtered_img)
     self.filtered_image_pub.publish(filtered_img)
 
 #* FUNCTIONS

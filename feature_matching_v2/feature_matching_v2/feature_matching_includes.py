@@ -1,4 +1,6 @@
 from hashlib import new
+
+from soupsieve import match
 import rclpy
 import cv2
 import numpy as np
@@ -28,3 +30,6 @@ ekf_output = Odometry()
 controller_output = Odometry()
 filtered_img = Image()
 matched_pose = Vector3()
+matched_pose.x = float(-1000)
+matched_pose.y = float(-1000)
+matched_pose.z = float(-1000)
