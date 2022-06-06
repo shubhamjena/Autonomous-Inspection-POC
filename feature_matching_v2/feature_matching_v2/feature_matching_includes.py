@@ -26,7 +26,7 @@ paths = {
     'database_coordinates': '~/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching/DATABASE_coordinates_test.csv',
 }
 
-DATASET_COORDINATES = "/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/csv/better_dataset_coordinates.csv"
+DATASET_COORDINATES = "/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/csv/dataset_coordinates.csv"
 dataset_coordinates = pd.read_csv(DATASET_COORDINATES);
 
 timer_period = 0.1

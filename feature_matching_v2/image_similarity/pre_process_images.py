@@ -3,8 +3,8 @@ import os
 
 dim = (800, 800)
 
-data_dir = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/better_dataset'
-os.chdir('/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/hsv_better_dataset')
+data_dir = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/dataset'
+os.chdir('/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/processed_dataset')
 
 for file in os.listdir(data_dir):
     img_path = os.path.join(data_dir, file)
