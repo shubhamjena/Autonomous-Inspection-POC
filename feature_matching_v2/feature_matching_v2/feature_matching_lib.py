@@ -30,43 +30,47 @@ def node_init(self):
 
 def camera_image_callback(self, data):
     global filtered_img, matched_pose, estimated_z, fallback, robot_coordinates, temp_z
+
+    #* Draw Contours on Input Image
     camera_img = self.cvBridge.imgmsg_to_cv2(data)
     edges = cv2.Canny(camera_img, 50, 200, apertureSize=5)
-
     contours, hierarchy = cv2.findContours(edges, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contour_img = camera_img
     cv2.drawContours(contour_img, contours, -1, (255,0,0), 3)
     filtered_img = self.cvBridge.cv2_to_imgmsg(cvim=contour_img, encoding="rgb8")
 
-    # robot_coordinates = [
-    #     ekf_output.pose.pose.position.x,
-    #     ekf_output.pose.pose.position.y,
-    #     estimated_z.data,
-    # ]
+    # print('estimated_z: ' + str(estimated_z.data))
+    # print('ekf_y: ' + str(ekf_output.pose.pose.position.y))
 
-    angles = tf_transformations.euler_from_quaternion([imu.orientation.x,imu.orientation.y,imu.orientation.z,imu.orientation.w], axes='szyx')
+    #* Get Orientation Vector V and Determine the Bot Heading
+    # angles = tf_transformations.euler_from_quaternion([imu.orientation.x,imu.orientation.y,imu.orientation.z,imu.orientation.w], axes='szyx')
     R = tf_transformations.quaternion_matrix([imu.orientation.x,imu.orientation.y,imu.orientation.z,imu.orientation.w])
     X = [1, 0, 0]
     V = np.matmul(R[0:3, 0:3], X)
 
-    closest_coords, closest_name, temp = MatchImageHistogram(camera_img, '', robot_coordinates)
-
-    # print('estimated_z: ' + str(estimated_z.data))
-    # print('ekf_y: ' + str(ekf_output.pose.pose.position.y))
     if velocity.linear.x != 0:
         # heading = (angles[2]/abs(angles[2])) * (velocity.linear.x/abs(velocity.linear.x))
         heading = V[2]/abs(V[2])
     else:
         heading = 0
 
+    #* Get Closest Matched Image Distance (temp)
+    matched_img_coords, matched_img_name, matched_img_dist = MatchImageHistogram(camera_img, '', robot_coordinates)
+    print(matched_img_coords + [matched_img_name])
+    print('estimated z: ' + str(estimated_z.data))
+
+    #* Main Pose Fusion Algorithm
+
     if not fallback:
         distance = 100000000
-        # temp_z = estimated_z.data
+
         robot_coordinates = [
             ekf_output.pose.pose.position.x,
             ekf_output.pose.pose.position.y,
             estimated_z.data,
         ]
+
+        #* Check For Top 2 matched Y and Select Best According to Distance and Heading
         df = dataset_coordinates.iloc[(dataset_coordinates['Y']-ekf_output.pose.pose.position.y).abs().argsort()[:2]]
         # print(df)
         for index, row in df.iterrows():
@@ -86,7 +90,8 @@ def camera_image_callback(self, data):
                         estimated_z.data = row['Z'] + CESSNA_HEIGHT
                 else:
                     continue
-
+        
+        #* Reject and Use Previous Estimated Z if Difference > Threshold (0.5)
         if abs(temp_z - estimated_z.data) > 0.5:
             estimated_z.data = temp_z
         else:
@@ -97,69 +102,11 @@ def camera_image_callback(self, data):
             ekf_output.pose.pose.position.y,
             estimated_z.data,
         ]
-        closest_coords, closest_name, temp = MatchImageHistogram(camera_img, '', robot_coordinates)
+
+        # matched_img_coords, matched_img_name, matched_img_dist = MatchImageHistogram(camera_img, '', robot_coordinates)
         matched_pose.x = robot_coordinates[0]
         matched_pose.y = robot_coordinates[1]
         matched_pose.z = robot_coordinates[2]
-
-    # if fallback:
-    #     distance = 100000000
-    #     temp_z = estimated_z.data
-    #     robot_coordinates = [
-    #         ekf_output.pose.pose.position.x,
-    #         ekf_output.pose.pose.position.y,
-    #         estimated_z.data,
-    #     ]
-    #     df = dataset_coordinates.iloc[(dataset_coordinates['Y']-ekf_output.pose.pose.position.y).abs().argsort()[:2]]
-    #     # print(df)
-    #     for index, row in df.iterrows():
-    #         # print(row['Y'], type(row['Y']))
-    #         temp_dist = math.dist([row['X'],row['Y'],row['Z'] + CESSNA_HEIGHT], robot_coordinates)
-    #         if temp_dist < distance:
-    #             distance = temp_dist
-    #             estimated_z.data = row['Z'] + CESSNA_HEIGHT
-
-    #     robot_coordinates = [
-    #         ekf_output.pose.pose.position.x,
-    #         ekf_output.pose.pose.position.y,
-    #         estimated_z.data,
-    #     ]
-    #     closest_coords, closest_name, temp = MatchImageHistogram(camera_img, '', robot_coordinates)
-    #     if(abs(temp - estimated_z.data) < 0.05):
-    #         estimated_z.data = temp
-    #         fallback = False
-    #         print('fallback off')
-    # else:
-    #     robot_coordinates = [
-    #         ekf_output.pose.pose.position.x,
-    #         ekf_output.pose.pose.position.y,
-    #         estimated_z.data,
-    #     ]
-        
-    #     closest_coords, closest_name, temp = MatchImageHistogram(camera_img, '', robot_coordinates)
-
-    #     if ((abs(temp - estimated_z.data) < 0.05) or (abs(temp - estimated_z.data) > 0.1)) and (abs(velocity.linear.x) > 0.001):
-    #         fallback = True
-    #         print('fallback on')
-
-    #         distance = 100000000
-    #         temp_z = estimated_z.data
-    #         robot_coordinates = [
-    #             ekf_output.pose.pose.position.x,
-    #             ekf_output.pose.pose.position.y,
-    #             estimated_z.data,
-    #         ]
-    #         df = dataset_coordinates.iloc[(dataset_coordinates['Y']-ekf_output.pose.pose.position.y).abs().argsort()[:2]]
-    #         # print(df)
-    #         for index, row in df.iterrows():
-    #             # print(row['Y'], type(row['Y']))
-    #             temp_dist = math.dist([row['X'],row['Y'],row['Z'] + CESSNA_HEIGHT], robot_coordinates)
-    #             if temp_dist < distance:
-    #                 distance = temp_dist
-    #                 estimated_z.data = row['Z'] + CESSNA_HEIGHT
-    #     else:
-    #         estimated_z.data = temp
-
 
 
     # print('estimated z: ' + str(estimated_z))
