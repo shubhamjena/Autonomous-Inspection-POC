@@ -16,7 +16,7 @@ class iBotEdfThrustControl(Node):
         wrench = Wrench()
         wrench.force.z = -1000.0
         self.publisher_.publish(wrench)
-        self.get_logger().info("Publishing: Thrust force of %0.2f N" % (wrench.force.z))
+        # self.get_logger().info("Publishing: Thrust force of %0.2f N" % (wrench.force.z))
 
 
 def main(args=None):

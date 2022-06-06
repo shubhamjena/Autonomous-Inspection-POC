@@ -14,9 +14,9 @@ class iBotSteer(Node):
 
     def timer_callback(self):
         twist = Twist()
-        twist.linear.x = 0.02
+        twist.linear.x = +0.05
         self.publisher_.publish(twist)
-        self.get_logger().info("Publishing: Vx of %0.2f m/s" % (twist.linear.x))
+        # self.get_logger().info("Publishing: Vx of %0.2f m/s" % (twist.linear.x))
 
 
 def main(args=None):

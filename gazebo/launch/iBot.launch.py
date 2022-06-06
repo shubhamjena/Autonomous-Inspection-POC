@@ -17,10 +17,9 @@ def generate_launch_description():
   robot_localization_file_path = os.path.join(pkg_share, 'config/ekf.yaml')
   robot_name_in_urdf = 'iBot'
 
-  world_file_name = 'artificial_plane.world'
-  # world_file_name = 'empty_world_with_spotlights.world'
+  # world_file_name = 'artificial_plane.world'
+  world_file_name = 'world_with_spotlights.world'
   world_path = os.path.join(pkg_share, 'worlds', world_file_name)
-  # world_path = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/gazebo/worlds/empty_world_with_spotlights.world'
 
   # Launch configuration variables specific to simulation
   headless = LaunchConfiguration('headless')
@@ -84,6 +83,10 @@ def generate_launch_description():
     executable='ekf_node',
     name='ekf_filter_node',
     output='screen',
+    # namespace='iBot',
+    remappings=[
+      ('/odometry/filtered', '/iBot/odometry/filtered')
+    ],
     parameters=[robot_localization_file_path,
     {'use_sim_time': use_sim_time}]
     )

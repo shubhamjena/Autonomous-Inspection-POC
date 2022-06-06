@@ -38,7 +38,7 @@
   <!-- ************************ CAMERA SENSOR ****************************** -->
   <gazebo reference="camera">
     <sensor name="camera_sensor" type="camera">
-      <update_rate>30.0</update_rate>
+      <update_rate>30</update_rate>
       <always_on>1</always_on>
       <camera name="camera">
         <!-- <horizontal_fov>1.3962634</horizontal_fov> -->
@@ -167,6 +167,21 @@
       <always_on>true</always_on>
       <link_name>robot_footprint</link_name>
       <force_frame>link</force_frame>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+      <ros>
+        <namespace>/iBot</namespace>
+        <argument>odom:=ground_truth</argument>
+      </ros>
+      <always_on>true</always_on>
+      <update_rate>50.0</update_rate>
+      <body_name>robot_footprint</body_name>
+      <gaussian_noise>0.01</gaussian_noise>
+      <frame_name>world</frame_name>
+      <xyz_offset>0 0 0</xyz_offset>
+      <rpy_offset>0 0 0</rpy_offset>
     </plugin>
   </gazebo>
   <!-- ******************** BASE LINK ************************************** -->

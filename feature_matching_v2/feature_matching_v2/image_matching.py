@@ -8,11 +8,13 @@ import os
 def MatchImageHistogram(image, data_dir, robot_coordinates):
     #* PARAMETERS
 
-    DISTANCE_WEIGHT = 4
+    DISTANCE_WEIGHT = 1
     FIRST_N_IMAGES = 3
-    DISTANCE_THRESHOLD = 0.25
+    DISTANCE_THRESHOLD = 0.2
+    DISTANCE_SCALE = 1
+    CESSNA_HEIGHT = 5
 
-    DATASET_COORDINATES = "/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/csv/dataset_coordinates.csv"
+    DATASET_COORDINATES = "/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/csv/better_dataset_coordinates.csv"
     dataset_coordinates = pd.read_csv(DATASET_COORDINATES);
 
     h_bins = 50
@@ -24,12 +26,13 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
     channels = [0, 1]
     compare_method = cv2.HISTCMP_CORREL
 
+    histogram_measures = {}
+    estimated_z = -1000000000
+
     camera_img = image
     camera_img_hsv = cv2.cvtColor(camera_img, cv2.COLOR_RGB2HSV)
     camera_img_hist = cv2.calcHist([camera_img_hsv], channels, None, histSize, ranges, accumulate=False)
     cv2.normalize(camera_img_hist, camera_img_hist, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
-
-    histogram_measures = {}
 
     #* PREPARE SCALE DIMENSIONS
 
@@ -40,8 +43,14 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
 
     #* IMAGE MATCHING USING HISTOGRAM AND DISTANCE THRESHOLDING
 
-    data_dir = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/hsv_dataset'
-    os.listdir(data_dir)
+    data_dir = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/hsv_better_dataset'
+    
+    def calc_dist(p, q):
+        a = 1; b = 1; c = 1
+        x_c = a*(pow(p[0] - q[0], 2))
+        y_c = b*(pow(p[1] - q[1], 2))
+        z_c = c*(pow(p[2] - q[2], 2))
+        return math.sqrt(x_c + y_c + z_c)
 
     for file in os.listdir(data_dir):
         img_path = os.path.join(data_dir, file)
@@ -53,10 +62,11 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
         image_coordinates = [
             dataset_image.X.iloc[0],
             dataset_image.Y.iloc[0],
-            dataset_image.Z.iloc[0],
+            dataset_image.Z.iloc[0] + CESSNA_HEIGHT,
         ]
-        distance = math.sqrt(np.sum(np.square(np.array(image_coordinates) - np.array(robot_coordinates))))
-        distance_scaled = distance + 1
+        # distance = math.sqrt(np.sum(np.square(np.array(image_coordinates) - np.array(robot_coordinates))))
+        distance = calc_dist(image_coordinates, robot_coordinates)
+        distance_scaled = distance + DISTANCE_SCALE
         hist_img = cv2.calcHist([hsv_img], channels, None, histSize, ranges, accumulate=False)
         cv2.normalize(hist_img, hist_img, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
         hist_measure = cv2.compareHist(camera_img_hist, hist_img, compare_method)/pow(distance_scaled, DISTANCE_WEIGHT)
@@ -82,22 +92,28 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
         closest_img_coordinates.append([
             closest_imgs[index].X.iloc[0],
             closest_imgs[index].Y.iloc[0],
-            closest_imgs[index].Z.iloc[0],
+            closest_imgs[index].Z.iloc[0] + CESSNA_HEIGHT,
         ])
-        closest_distances.append(math.sqrt(np.sum(np.square(np.array(closest_img_coordinates[index]) - np.array(robot_coordinates)))))
+        # closest_distances.append(math.sqrt(np.sum(np.square(np.array(closest_img_coordinates[index]) - np.array(robot_coordinates)))))
+        closest_distances.append(calc_dist(closest_img_coordinates[index], robot_coordinates))
         if closest_distances[index] < distance:
             distance = closest_distances[index]
             closest_img_name = closest_img_names[index]
             closest_img_coordinate = closest_img_coordinates[index]
 
+
+    estimated_z = (np.sum(closest_img_coordinates[0:2], axis=0)[2]/2)
+    # print(closest_img_names)
     #* FINAL DISTANCE CHECK BEFORE PUBLISHING
 
     distance = math.sqrt(np.sum(np.square(np.array(closest_img_coordinate) - np.array(robot_coordinates))))
     if distance > DISTANCE_THRESHOLD:
         # print([robot_coordinates, closest_img_coordinate, distance])
-        return [], []
+        # print(closest_img_name + ' ' + str(distance))
+        return [], [], estimated_z
     else:
-        return closest_img_coordinate, closest_img_name
+        # print(closest_img_name + ' ' + str(distance))
+        return closest_img_coordinate, closest_img_name, estimated_z
 
 ################################################################################################################################################################
 #* RMSE, SSIM, SRE METHOD

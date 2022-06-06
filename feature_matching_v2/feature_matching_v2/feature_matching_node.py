@@ -8,6 +8,8 @@ class FeatureMatcher(Node):
     camera_image_callback = camera_image_callback
     odom_callback = odom_callback
     ibot_odom_callback = ibot_odom_callback
+    velocity_callback = velocity_callback
+    imu_callback = imu_callback
 
     # Publisher Callbacks
     match_status_timer_callback = match_status_timer_callback
