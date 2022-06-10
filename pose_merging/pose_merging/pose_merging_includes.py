@@ -23,7 +23,7 @@ matched_pose = Odometry()
 truth_pose = Odometry()
 merged_pose = Vector3()
 
-benchmarks_path = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/pose_merger/data/benchmark/poses.csv'
+benchmarks_path = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/pose_merging/data/benchmark/poses.csv'
 
 truth_array = []
 truth_array.append([])

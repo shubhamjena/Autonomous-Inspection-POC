@@ -111,18 +111,18 @@ def camera_image_callback(self, data):
             estimated_z.data,
         ]
 
-        # matched_pose.x = robot_coordinates[0]
-        # matched_pose.y = robot_coordinates[1]
-        # matched_pose.z = robot_coordinates[2]
+        matched_pose.x = robot_coordinates[0]
+        matched_pose.y = robot_coordinates[1]
+        matched_pose.z = robot_coordinates[2]
 
-        if matched_img_name == [] :
-            matched_pose.x = robot_coordinates[0]
-            matched_pose.y = robot_coordinates[1]
-            matched_pose.z = robot_coordinates[2]
-        else :
-            matched_pose.x = (matched_img_coords[0]*0.8 + robot_coordinates[0]*0.2)
-            matched_pose.y = (matched_img_coords[1]*0.8 + robot_coordinates[1]*0.2)
-            matched_pose.z = (matched_img_coords[2]*0.8 + robot_coordinates[2]*0.2)
+        # if matched_img_name == [] :
+        #     matched_pose.x = robot_coordinates[0]
+        #     matched_pose.y = robot_coordinates[1]
+        #     matched_pose.z = robot_coordinates[2]
+        # else :
+        #     matched_pose.x = (matched_img_coords[0]*0.8 + robot_coordinates[0]*0.2)
+        #     matched_pose.y = (matched_img_coords[1]*0.8 + robot_coordinates[1]*0.2)
+        #     matched_pose.z = (matched_img_coords[2]*0.8 + robot_coordinates[2]*0.2)
             
 
 

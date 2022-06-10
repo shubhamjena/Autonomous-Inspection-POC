@@ -59,11 +59,11 @@ def merged_pose_timer_callback(self):
     # if not(matched_pose.pose.pose.position.x == -1000 and matched_pose.pose.pose.position.y == -1000 and matched_pose.pose.pose.position.z == -1000):
     #     merged_pose.x = (((1-X)*matched_pose.pose.pose.position.x + X*ekf_pose.pose.pose.position.x))
     #     merged_pose.y = (((1-X)*matched_pose.pose.pose.position.y + X*ekf_pose.pose.pose.position.y))
-    #     merged_pose.z = (((1-X)*matched_pose.pose.pose.position.z + X*ekf_pose.pose.pose.position.z))
+    #     merged_pose.z = (matched_pose.pose.pose.position.z)
     # else:
     #     merged_pose.x = ekf_pose.pose.pose.position.x
     #     merged_pose.y = ekf_pose.pose.pose.position.y
-    #     merged_pose.z = ekf_pose.pose.pose.position.z
+    #     merged_pose.z = matched_pose.pose.pose.position.z
 
     merged_pose.x = matched_pose.pose.pose.position.x
     merged_pose.y = matched_pose.pose.pose.position.y

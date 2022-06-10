@@ -17,7 +17,7 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
     K_y = 1
     K_z = 1
 
-    DATASET_COORDINATES = "/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/csv/dataset_coordinates.csv"
+    DATASET_COORDINATES = "/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching/image_similarity/csv/dataset_coordinates.csv"
     dataset_coordinates = pd.read_csv(DATASET_COORDINATES);
 
     h_bins = 50
@@ -46,7 +46,7 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
 
     #* IMAGE MATCHING USING HISTOGRAM AND DISTANCE THRESHOLDING
 
-    data_dir = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching_v2/image_similarity/processed_dataset'
+    data_dir = '/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/feature_matching/image_similarity/processed_dataset'
     
     if robot_coordinates[0] == 0 and robot_coordinates[1] == 0 and robot_coordinates[2] == 6.9:
         return [], [], estimated_z
