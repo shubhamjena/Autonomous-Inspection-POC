@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'feature_matching'
+package_name = 'pose_merging'
 
 setup(
     name=package_name,
@@ -14,13 +14,14 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='atharva',
-    maintainer_email='atharva@todo.todo',
+    maintainer_email='atharvaumbarkar1@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'feature_matcher = feature_matching.feature_matching_node:main'
+            'pose_merger = pose_merging.pose_merging_node:main',
+            'noise_injector = pose_merging.noise_injecting_node:main'
         ],
     },
 )
