@@ -3,7 +3,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription,ExecuteProcess
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import Command, LaunchConfiguration, PythonExpression
+from launch.substitutions import Command, LaunchConfiguration, PythonExpression, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -89,7 +89,7 @@ def generate_launch_description():
     ],
     parameters=[robot_localization_file_path,
     {'use_sim_time': use_sim_time}]
-    )
+  )
 
   # Subscribe to the joint states of the robot, and publish the 3D pose of each link.
   start_robot_state_publisher_cmd = Node(
@@ -100,7 +100,7 @@ def generate_launch_description():
     'robot_description': Command(['xacro ', model])}],
     arguments=[default_model_path],
     remappings=[('/joint_states', '/iBot/joint_states')]
-    )
+  )
 
 
   spawn_entity = Node(
