@@ -17,8 +17,8 @@ def generate_launch_description():
   robot_localization_file_path = os.path.join(pkg_share, 'config/ekf.yaml')
   robot_name_in_urdf = 'iBot'
 
-  # world_file_name = 'artificial_plane.world'
-  world_file_name = 'world_with_spotlights.world'
+  world_file_name = 'artificial_plane.world'
+  # world_file_name = 'world_with_spotlights.world'
   world_path = os.path.join(pkg_share, 'worlds', world_file_name)
 
   # Launch configuration variables specific to simulation
