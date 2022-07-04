@@ -5,8 +5,13 @@ from nav_msgs.msg import Odometry
 
 ekf_output = Odometry()
 noisy_odom = Odometry()
+noise = 0.05
 
 class NoiseInjector(Node):
+    '''
+    Publishes Noisy Odometry Data to "/iBot/noisy_odom" topic
+    '''
+
     def __init__(self):
         super().__init__('noise_injector')
         self.odom_sub = self.create_subscription(Odometry,'/iBot/odometry/filtered',self.odom_callback,1)
@@ -18,13 +23,12 @@ class NoiseInjector(Node):
         ekf_output = data
 
     def noisy_odom_timer_callback(self):
-        global noisy_odom
-        noisy_odom.pose.pose.position.x = ekf_output.pose.pose.position.x + np.random.normal(0, 0.05)
-        noisy_odom.pose.pose.position.y = ekf_output.pose.pose.position.y + np.random.normal(0, 0.05)
-        noisy_odom.pose.pose.position.z = ekf_output.pose.pose.position.z + np.random.normal(0, 0.05)
+        global noisy_odom, noise
+        noisy_odom.pose.pose.position.x = ekf_output.pose.pose.position.x + np.random.normal(0, noise)
+        noisy_odom.pose.pose.position.y = ekf_output.pose.pose.position.y + np.random.normal(0, noise)
+        noisy_odom.pose.pose.position.z = ekf_output.pose.pose.position.z + np.random.normal(0, noise)
         noisy_odom.child_frame_id = 'robot_footprint'
         noisy_odom.header.frame_id = 'odom'
-        # print(noisy_odom.pose.pose.position)
         self.noisy_odom_pub.publish(noisy_odom)
 
 def main(args=None):

@@ -24,8 +24,6 @@ def node_init(self):
 
     # EXTRA TIMERS
 
-    self.plot_timer = self.create_timer(timer_period, self.plot_timer_callback)
-
 #* CALLBACKS
 
 #* SUBSCRIBER CALLBACKS
@@ -55,6 +53,9 @@ def matched_status_callback(self, data):
 #* PUBLISHER CALLBACKS
 
 def merged_pose_timer_callback(self):
+
+    ''' Merge EKF and Estimated Poses using suitable conditions '''
+
     global merged_pose, truth_pose, matched_pose, X
     # if not(matched_pose.pose.pose.position.x == -1000 and matched_pose.pose.pose.position.y == -1000 and matched_pose.pose.pose.position.z == -1000):
     #     merged_pose.x = (((1-X)*matched_pose.pose.pose.position.x + X*ekf_pose.pose.pose.position.x))
@@ -75,23 +76,15 @@ def merged_pose_timer_callback(self):
     merged_array[1].append(merged_pose.y)
     merged_array[2].append(merged_pose.z)
 
-def plot_timer_callback(self):
-    global truth_array, ekf_array, merged_array
-    global truth_pose, ekf_pose, merged_pose
-
-    print(ekf_pose.pose.pose.position)
-    
-    # dist_ekf = dist([ekf_pose.pose.pose.position.x,ekf_pose.pose.pose.position.y],[truth_pose.pose.pose.position.x,truth_pose.pose.pose.position.y])
-    # dist_merged = dist([merged_pose.x,merged_pose.y],[truth_pose.pose.pose.position.x,truth_pose.pose.pose.position.y])
-
-    # if dist_ekf < dist_merged: 
-    #     print('ekf: ' + str(dist_ekf))
-    # else:
-    #     print('merged: ' + str(dist_merged))
-    
-    
-
 def save_pose_data_callback(self, request, response):
+
+    '''
+    Save Pose Data to File for Benchmarking and Plotting.
+
+    Note: 1. For the service to work all the arrays you want to save must be of same size/length. 
+          2. Slow down the publishing rate of the topics you want to save to sync the different publishers to same the time stamp
+    '''
+
     d = {
         # 'truth_pose_x': truth_array[0][:50],
         'truth_pose_y': truth_array[1][:50],

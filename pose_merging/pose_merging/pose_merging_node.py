@@ -12,7 +12,6 @@ class PoseMerger(Node):
     
     # Publisher Callbacks
     merged_pose_timer_callback = merged_pose_timer_callback
-    plot_timer_callback = plot_timer_callback
 
     # Service Callbacks
     save_pose_data_callback = save_pose_data_callback

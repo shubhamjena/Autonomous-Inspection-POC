@@ -6,7 +6,22 @@ from image_similarity_measures.quality_metrics import rmse, ssim, sre
 import os
 
 def MatchImageHistogram(image, data_dir, robot_coordinates):
-    #* PARAMETERS
+    '''
+    Define Parameters
+
+    DISTANCE_WEIGHT: Weight for distance in histogram measure
+    FIRST_N_IMAGES: Number of images to consider for Z estimation
+    DISTANCE_THRESHOLD: Radius around the Bot in which to consider possible closest Images
+    DISTANCE_SCALE: Scale distance to make it greater than 1
+    CESSNA_HEIGHT: Height of center of the mass of Cessna (in m) in simulation
+
+    K_x, K_Y, K_Z: Scale factors for x, y, z in the distance formula
+
+    dataset_coordinates: Dataset of coordinates of images
+
+    h_bins, s_bins: Number of bins (ie. divisions) for hue and saturation in histogram 
+    h_ranges, s_ranges: Range of values to consider for hue and saturation in histogram
+    '''
 
     DISTANCE_WEIGHT = 1
     FIRST_N_IMAGES = 3
@@ -32,6 +47,8 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
     histogram_measures = {}
     estimated_z = -1000000000
 
+    ''' Convert input image to histogram and normalize it '''
+
     camera_img = image
     camera_img_hsv = cv2.cvtColor(camera_img, cv2.COLOR_RGB2HSV)
     camera_img_hist = cv2.calcHist([camera_img_hsv], channels, None, histSize, ranges, accumulate=False)
@@ -52,6 +69,9 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
         return [], [], estimated_z
 
     def calc_dist(p, q):
+
+        ''' Calcuate distance between two points with custom scale K_x, K_y, K_z '''
+
         x_c = K_x*(pow(p[0] - q[0], 2))
         y_c = K_y*(pow(p[1] - q[1], 2))
         z_c = K_z*(pow(p[2] - q[2], 2))
@@ -68,9 +88,16 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
             dataset_image.Z.iloc[0] + CESSNA_HEIGHT,
         ]
         distance = calc_dist(image_coordinates, robot_coordinates)
+
+        ''' Reject Image if distance is greater than DISTANCE_THRESHOLD '''
+
         if distance > DISTANCE_THRESHOLD:
             continue
+    
         distance_scaled = distance + DISTANCE_SCALE
+
+        ''' Convert image to histogram, normalize and store its measure '''
+
         hist_img = cv2.calcHist([hsv_img], channels, None, histSize, ranges, accumulate=False)
         cv2.normalize(hist_img, hist_img, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
         hist_measure = cv2.compareHist(camera_img_hist, hist_img, compare_method)/pow(distance_scaled, DISTANCE_WEIGHT)
@@ -80,7 +107,7 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
 
     closest_img_names = []
     closest_imgs = []
-    closest_img_coordinates = []
+    closest_imgs_coordinate = []
     closest_distances = []
 
     closest_img_coordinate = []
@@ -88,28 +115,36 @@ def MatchImageHistogram(image, data_dir, robot_coordinates):
 
     distance = 100000000
 
+    ''' Sort images based on their histogram measure and pick the first N images '''
+
     sorted_measures = (dict(sorted(histogram_measures.items(), key=lambda item: item[1], reverse = True)))
     closest_img_names = list(sorted_measures.keys())[0 : FIRST_N_IMAGES]
 
+    ''' Pick the image closest to the Bot from the first N images '''
+
     for index, value in enumerate(closest_img_names):
         closest_imgs.append(dataset_coordinates.loc[dataset_coordinates['Image_Id'] == closest_img_names[index]])
-        closest_img_coordinates.append([
+        closest_imgs_coordinate.append([
             closest_imgs[index].X.iloc[0],
             closest_imgs[index].Y.iloc[0],
             closest_imgs[index].Z.iloc[0] + CESSNA_HEIGHT,
         ])
-        closest_distances.append(calc_dist(closest_img_coordinates[index], robot_coordinates))
+        closest_distances.append(calc_dist(closest_imgs_coordinate[index], robot_coordinates))
         if closest_distances[index] < distance:
             distance = closest_distances[index]
             closest_img_name = closest_img_names[index]
-            closest_img_coordinate = closest_img_coordinates[index]
+            closest_img_coordinate = closest_imgs_coordinate[index]
 
-    if len(closest_img_coordinates) < 1:
+    ''' If no close image is found, return initial Z '''
+
+    if len(closest_imgs_coordinate) < 1:
         return [], [], estimated_z
-    estimated_z = (np.sum(closest_img_coordinates[0:2], axis=0)[2]/len(closest_img_coordinates))
-    # print(closest_img_names)
 
-    #* FINAL DISTANCE CHECK BEFORE PUBLISHING
+    ''' Average the Z coordinates of the first N images '''
+
+    estimated_z = (np.sum(closest_imgs_coordinate[0:2], axis=0)[2]/len(closest_imgs_coordinate))
+
+    ''' Final distance check before publishing '''
 
     distance = math.sqrt(np.sum(np.square(np.array(closest_img_coordinate) - np.array(robot_coordinates))))
     if distance > DISTANCE_THRESHOLD:

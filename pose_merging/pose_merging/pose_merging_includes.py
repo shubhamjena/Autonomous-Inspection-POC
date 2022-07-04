@@ -7,7 +7,7 @@ from rclpy.node import Node
 from geometry_msgs.msg import Vector3
 from geometry_msgs.msg import PoseArray
 from geometry_msgs.msg import Pose
-from std_msgs.msg import Bool  # can give string if needed
+from std_msgs.msg import Bool 
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import JointState
 from rcl_interfaces.msg import Parameter
@@ -39,11 +39,3 @@ ekf_array = []
 ekf_array.append([])
 ekf_array.append([])
 ekf_array.append([])
-
-# b = Parameter
-# b._value.type = 7
-# b.name = 'initial_state'
-# b._value.double_array_value = [2, 2, 2, 0.0, 0.0, 1.57, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-
-# a = SetParameters
-# a.Request.parameters = [b]
