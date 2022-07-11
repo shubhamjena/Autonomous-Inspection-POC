@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'feature_matching'
+package_name = 'state_estimation'
 
 setup(
     name=package_name,
@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'feature_matcher = feature_matching.feature_matching_node:main'
+            'state_estimator = state_estimation.state_estimation_node:main'
         ],
     },
 )

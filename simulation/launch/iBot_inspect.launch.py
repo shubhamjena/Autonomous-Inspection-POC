@@ -17,15 +17,15 @@ def generate_launch_description():
         output='screen'
     )
 
-    feature_matcher = Node(
-        name='feature_matcher',
-        package='feature_matching',
-        executable='feature_matcher',
+    state_estimator = Node(
+        name='state_estimator',
+        package='state_estimation',
+        executable='state_estimator',
         output='screen'
     )
 
     launchDescription.add_action(thrust_provider)
     # launchDescription.add_action(trajectory_follower)
-    launchDescription.add_action(feature_matcher)
+    launchDescription.add_action(state_estimator)
 
     return launchDescription
