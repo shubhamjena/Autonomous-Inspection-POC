@@ -14,7 +14,7 @@ def generate_launch_description():
         executable="ibot_edf_thrust_control"
     )
 
-    launchDescription.add_action(ibot_edf_thrust_control)
+    # launchDescription.add_action(ibot_edf_thrust_control)
     launchDescription.add_action(ibot_steer)
 
     return launchDescription

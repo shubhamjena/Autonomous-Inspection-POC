@@ -6,16 +6,15 @@ def node_init(self):
 
     self.imu_subscriber = self.create_subscription(Imu, '/iBot/imu', self.imu_callback, 10)
     self.odom_subscriber = self.create_subscription(Odometry,'/iBot/odometry/filtered',self.odom_callback,1)
+    self.estimated_pose_subscriber = self.create_subscription(Odometry,'/iBot/matched_pose',self.estimated_pose_callback,1)
 
     # PUBLISHERS
 
-    self.thrust_publisher = self.create_publisher(Wrench, '/iBot/gazebo_ros_force', 10)
     self.velocity_publisher = self.create_publisher(Twist, '/iBot/cmd_vel', 10)
 
     # PUBLISHER TIMERS
 
-    timer_period = 0.1  # seconds
-    self.thrust_timer = self.create_timer(timer_period, self.thrust_timer_callback)
+    timer_period = 0.1
     self.velocity_timer = self.create_timer(timer_period, self.velocity_timer_callback)
     
     # EXTRA TIMERS
@@ -30,7 +29,10 @@ def node_init(self):
 def odom_callback(self, data):
     global ekf_output
     ekf_output = data
-    # print(ekf_output.pose.pose.position)
+
+def estimated_pose_callback(self, data):
+    global estimated_pose
+    estimated_pose = data
     
 def imu_callback(self, data):
     global imu, orientation, orientation_unit
@@ -42,14 +44,9 @@ def imu_callback(self, data):
 
 #* PUBLISHER CALLBACKS
 
-def thrust_timer_callback(self):
-    wrench = Wrench()
-    wrench.force.z = -1000.0
-    # self.thrust_publisher.publish(wrench)
-
 def velocity_timer_callback(self):
     twist = Twist()
-    twist.linear.x = 0.5
+    twist.linear.x = +0.1
     twist.angular.z = yaw_correction*5
     self.velocity_publisher.publish(twist)
 
@@ -89,6 +86,8 @@ def correct_traj_callback(self):
         else:
             yaw_correction = yaw_correction*abs(correction_angle)*abs(x_correction[0])
     # print(correction_angle)
+    if estimated_pose.pose.pose.position.z - 6.5 <= 0:
+        yaw_correction = -yaw_correction
     print(yaw_correction)
 
 

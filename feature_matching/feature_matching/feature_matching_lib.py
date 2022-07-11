@@ -7,7 +7,7 @@ def node_init(self):
     
     self.camera_image_sub = self.create_subscription(Image,'/iBot/camera/image',self.camera_image_callback,1)
     self.ibot_odom_sub = self.create_subscription(Odometry,'/iBot/odom',self.ibot_odom_callback,1)
-    self.odom_sub = self.create_subscription(Odometry,'/iBot/noisy_odom',self.odom_callback,1)
+    self.odom_sub = self.create_subscription(Odometry,'/iBot/odometry/filtered',self.odom_callback,1)
     self.velocity_sub = self.create_subscription(Twist,'/iBot/cmd_vel',self.velocity_callback,1)
     self.imu_sub = self.create_subscription(Imu,'/iBot/imu',self.imu_callback,1)
 

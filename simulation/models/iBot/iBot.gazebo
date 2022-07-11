@@ -9,22 +9,22 @@
         <remapping>/cmd_vel:=cmd_vel</remapping>
         <remapping>/odom:=odom</remapping>
       </ros>
-      <update_rate>100.0</update_rate>
+      <update_rate>20.0</update_rate>
       <num_wheel_pairs>2</num_wheel_pairs>
       <odometry_frame>odom</odometry_frame>
 
       <left_joint>front_left_wheel_joint</left_joint>
-      <left_joint>back_left_wheel_joint</left_joint>
+      <right_joint>front_right_wheel_joint</right_joint>
       <wheel_separation>0.32</wheel_separation>
       <wheel_diameter>0.25</wheel_diameter>
-
-      <right_joint>front_right_wheel_joint</right_joint>
+      
+      <left_joint>back_left_wheel_joint</left_joint>
       <right_joint>back_right_wheel_joint</right_joint>
       <wheel_separation>0.32</wheel_separation>
       <wheel_diameter>0.25</wheel_diameter>
 
-      <max_wheel_torque>20</max_wheel_torque>
-      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <max_wheel_torque>40</max_wheel_torque>
+      <max_wheel_acceleration>5.0</max_wheel_acceleration>
 
       <publish_odom>true</publish_odom>
       <!-- robot_localization package publishes this transform -->
@@ -194,7 +194,7 @@
     </plugin>
   </gazebo>
 
-  <ros2_control name="GazeboSystem" type="system">
+  <!-- <ros2_control name="GazeboSystem" type="system">
     <hardware>
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
     </hardware>
@@ -240,6 +240,6 @@
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
       <parameters>/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/simulation/config/iBot_joint_trajectory_controller.yaml</parameters>
     </plugin>
-  </gazebo>
+  </gazebo> -->
 
 </robot>

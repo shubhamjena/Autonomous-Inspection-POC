@@ -17,7 +17,8 @@ class iBotSteer(Node):
     def timer_callback(self):
         global pos;
         twist = Twist()
-        twist.linear.x = -0.1
+        twist.linear.x = 0.0
+        twist.angular.z = 1.0
         self.publisher_.publish(twist)
 
 

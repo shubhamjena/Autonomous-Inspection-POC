@@ -8,9 +8,9 @@ class TrajectoryFollower(Node):
     # Subscriber Callbacks
     imu_callback = imu_callback
     odom_callback = odom_callback
+    estimated_pose_callback = estimated_pose_callback
     
     # Publisher Callbacks
-    thrust_timer_callback = thrust_timer_callback
     velocity_timer_callback = velocity_timer_callback
 
     # Service Callbacks
