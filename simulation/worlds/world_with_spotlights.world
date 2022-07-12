@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <sdf version="1.4">
     <world name="default">
     <scene>
@@ -14,11 +15,15 @@
         <pose>0 0 5 0 0 0</pose>
         <uri>model://aircraft</uri>
       </include>
-      <actor name="actor">
-      <skin>
-        <filename>/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/simulation/models/iBot/camera.dae</filename>
-      </skin>
-    </actor>
+      <!-- <include>
+        <pose>0 0 0 0 0 0</pose>
+        <uri>model://blender_camera</uri>
+      </include> -->
+      <!-- <actor name="actor">
+        <skin>
+          <filename>/home/atharva/ros2/airbus_ws/src/Autonomous-Inspection-POC/simulation/models/blender_camera/meshes/blender_camera.dae</filename>
+        </skin>
+      </actor> -->
       <light name='user_spot_light_0' type='spot'>
         <pose>5 -11.165299 -4.445484 2.303755 -0 0</pose>
         <diffuse>0.5 0.5 0.5 1</diffuse>
