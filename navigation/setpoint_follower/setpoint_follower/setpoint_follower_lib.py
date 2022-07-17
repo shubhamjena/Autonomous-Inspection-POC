@@ -1,4 +1,4 @@
-from .trajectory_follower_includes import *
+from .setpoint_follower_includes import *
 
 def node_init(self):
 
@@ -19,7 +19,7 @@ def node_init(self):
     
     # EXTRA TIMERS
 
-    self.correct_traj_timer = self.create_timer(timer_period, self.correct_traj_callback)
+    self.follow_setpoint_timer = self.create_timer(timer_period, self.follow_setpoint_callback)
     
 
 #* CALLBACKS
@@ -35,47 +35,50 @@ def estimated_pose_callback(self, data):
     estimated_pose = data
     
 def imu_callback(self, data):
-    global imu, orientation, orientation_unit
+    global imu, orientation, orientation_unit, X, correction_vector_bot_frame
     imu = data
     R = tf_transformations.quaternion_matrix([imu.orientation.x,imu.orientation.y,imu.orientation.z,imu.orientation.w])
-    X = [1, 0, 0]
-    orientation = np.matmul(R[0:3, 0:3], X)
-    orientation_unit = orientation/np.linalg.norm(orientation)
+    R_t = R.transpose()
+    correction_vector = [
+        current_setpoint[0] - ekf_output.pose.pose.position.x,
+        current_setpoint[1] - ekf_output.pose.pose.position.y,
+        current_setpoint[2] - estimated_pose.pose.pose.position.z
+        # current_setpoint[2] - 0,
+    ]
+    correction_vector_bot_frame = np.matmul(R_t[0:3,0:3], correction_vector)
+    correction_vector_bot_frame = unit_vector(correction_vector_bot_frame)
 
 #* PUBLISHER CALLBACKS
 
 def velocity_timer_callback(self):
-    global correction_factor
-    twist = Twist()
+    global correction_factor, twist
 
-    ''' The bot will always move forward with a constant velocity '''
-    twist.linear.x = +0.1
-
-    ''' The Yaw of the bot is corrected accordig to yaw_correctionand correction_factor '''
+    ''' The Yaw of the bot is corrected according to yaw_correction and correction_factor '''
     twist.angular.z = yaw_correction*correction_factor
 
     self.velocity_publisher.publish(twist)
 
 #* EXTRA CALLBACKS
 
-def correct_traj_callback(self):
-    global orientation_unit, n_hat, yaw_correction
+def follow_setpoint_callback(self):
+    global orientation_unit, n_hat, yaw_correction, correction_vector_bot_frame, twist, ekf_output, current_setpoint_number, setpoints_length, current_setpoint, estimated_pose
 
-    ''' Get the projection of orientation vector on the n_hat (yz plane) vector '''
-    projected_vector = orientation_unit -  np.dot(orientation_unit, n_hat)*np.array(n_hat)
+    if ((abs(ekf_output.pose.pose.position.x - current_setpoint[0]) <= 0.1) and (abs(ekf_output.pose.pose.position.y - current_setpoint[1]) <= 0.1) and (abs(estimated_pose.pose.pose.position.z - current_setpoint[2]) <= 0.05)):
+        twist.angular.z = 0.0
+        twist.linear.x = 0.0
+        if current_setpoint_number < setpoints_length:
+            current_setpoint_number += 1
+            current_setpoint = setpoints[current_setpoint_number]
+            print("setpoint changed to: ", current_setpoint)
+        return
 
-    ''' Get the x-correction vector from odometry data '''
-    x_correction = [5 - ekf_output.pose.pose.position.x, 0.0, 0.0]
-
-    ''' Get net correction vector '''
-    net_correction = projected_vector + x_correction
+    ''' Get the projection of correction vector on the (xy plane) vector '''
+    projected_vector = correction_vector_bot_frame -  np.dot(correction_vector_bot_frame, n_hat)*np.array(n_hat)
 
     ''' Make the vectors zero if very close to zero. To avoid unnecessary signs errors while calculating angle '''
-    orientation_unit = make_zero(orientation_unit)
-    net_correction = make_zero(net_correction)
-
-    cross_product = np.cross(orientation_unit, net_correction)
-    correction_angle = angle_between(net_correction, orientation_unit)
+    projected_vector = make_zero(projected_vector)
+    cross_product = np.cross(projected_vector, X)
+    correction_angle = angle_between(projected_vector, X)
 
     ''' Reject NaN correction angles '''
     if(correction_angle == np.nan):
@@ -84,33 +87,18 @@ def correct_traj_callback(self):
     ''' Initialize Yaw '''
     yaw_correction = 1
     
-    if abs(5 - ekf_output.pose.pose.position.x) <= 0.05:
+    if abs(correction_angle) >= 0.05:
         ''' 
-        If the bot is situated in the x = 5 +- 0.05 meters strip, 
-        just rotate the bot to correct its yaw,
-        according to its orientation and position 
+        placeholder
         ''' 
-        if(x_correction[0] > 0):
-            if x_correction[0]*orientation_unit[0] > 0:
-                yaw_correction = 1
-            else:
-                yaw_correction = -1
-        elif(x_correction[0] < 0):
-            if x_correction[0]*orientation_unit[0] >= 0:
-                yaw_correction = -1
-            else:
-                yaw_correction = 1
-        yaw_correction = yaw_correction*abs(orientation_unit[0]) * (np.sign(orientation[1]))
+        yaw_correction = yaw_correction*abs(correction_angle) * -(np.sign(cross_product[2]))
+        twist.linear.x = 0.0
     else:
-        '''
-        Depending on the net correction vector and the heading of the bot (orientation vector),
-        assign appropriate magnitude and direction to the yaw,
-        in this we have implemented a simple proportional magnitude  
-        '''
-        if cross_product[2] <= 0:
-            yaw_correction = -yaw_correction*abs(correction_angle)*abs(x_correction[0])
-        else:
-            yaw_correction = yaw_correction*abs(correction_angle)*abs(x_correction[0])
+        ''' 
+        placeholder
+        ''' 
+        yaw_correction = yaw_correction*abs(correction_angle) * -(np.sign(cross_product[2]))
+        twist.linear.x = 0.1
 
     '''
     Check if the bot is inverted or not,
@@ -121,6 +109,7 @@ def correct_traj_callback(self):
         yaw_correction = -yaw_correction
 
     print(yaw_correction)
+    # print(projected_vector)
 
 
 #* Helper Functions
