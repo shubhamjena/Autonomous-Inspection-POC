@@ -4,6 +4,7 @@ import math
 import tf_transformations
 import pandas as pd
 import numpy as np
+from datetime import datetime
 
 from rclpy.node import Node
 from cv_bridge import CvBridge
@@ -35,11 +36,16 @@ CESSNA_HEIGHT = 5
 match_status = Bool()
 ekf_output = Odometry()
 controller_output = Odometry()
+estimated_pose = Odometry()
 filtered_img = Image()
 matched_pose = Vector3()
 estimated_z = Float64()
 velocity = Twist()
 imu = Imu()
+rotated_vector_in_bot_frame = []
+orientation = []
+orientation_unit = []
+R = []
 fallback = False
 
 matched_pose.x = float(-1000)
@@ -54,3 +60,11 @@ robot_coordinates = [
     ekf_output.pose.pose.position.y,
     estimated_z.data,
 ]
+
+''' Pose Fuser Variables '''
+fused_pose = Odometry()
+initial_time = datetime.now()
+current_time = datetime.now()
+delta_t = 0.0
+v = 0.0
+rotated_vector_in_global_frame = [5, 0, 0]

@@ -15,6 +15,7 @@ class StateEstimator(Node):
     match_status_timer_callback = match_status_timer_callback
     match_position_timer_callback = match_position_timer_callback
     filtered_image_timer_callback = filtered_image_timer_callback
+    pose_fusion_timer_callback = pose_fusion_timer_callback
 
     def __init__(self):
         super().__init__('state_estimator')

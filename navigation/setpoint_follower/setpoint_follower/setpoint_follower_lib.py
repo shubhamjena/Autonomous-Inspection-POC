@@ -63,6 +63,8 @@ def velocity_timer_callback(self):
 def follow_setpoint_callback(self):
     global orientation_unit, n_hat, yaw_correction, correction_vector_bot_frame, twist, ekf_output, current_setpoint_number, setpoints_length, current_setpoint, estimated_pose
 
+    ''' Change current setpoint if the bot is sufficiently close to the current setpoint '''
+
     if ((abs(ekf_output.pose.pose.position.x - current_setpoint[0]) <= 0.1) and (abs(ekf_output.pose.pose.position.y - current_setpoint[1]) <= 0.1) and (abs(estimated_pose.pose.pose.position.z - current_setpoint[2]) <= 0.05)):
         twist.angular.z = 0.0
         twist.linear.x = 0.0
@@ -89,13 +91,13 @@ def follow_setpoint_callback(self):
     
     if abs(correction_angle) >= 0.05:
         ''' 
-        placeholder
+        Rotate the bot till correction angle < 0.05 radians
         ''' 
         yaw_correction = yaw_correction*abs(correction_angle) * -(np.sign(cross_product[2]))
         twist.linear.x = 0.0
     else:
         ''' 
-        placeholder
+        Move the bot forward with minute yaw corrections
         ''' 
         yaw_correction = yaw_correction*abs(correction_angle) * -(np.sign(cross_product[2]))
         twist.linear.x = 0.1
@@ -108,7 +110,7 @@ def follow_setpoint_callback(self):
     if estimated_pose.pose.pose.position.z - 6.5 <= 0:
         yaw_correction = -yaw_correction
 
-    print(yaw_correction)
+    print(correction_vector_bot_frame)
     # print(projected_vector)
 
 

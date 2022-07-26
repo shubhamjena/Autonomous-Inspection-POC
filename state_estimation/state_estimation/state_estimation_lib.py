@@ -15,6 +15,7 @@ def node_init(self):
 
     self.match_status_pub = self.create_publisher(Bool, '/iBot/match_status', 1)
     self.match_position_pub = self.create_publisher(Odometry,'/iBot/matched_pose', 1)
+    self.fused_position_pub = self.create_publisher(Odometry,'/iBot/fused_pose', 1)
     self.filtered_image_pub = self.create_publisher(Image,'/iBot/filtered_image', 1)
 
     # Publisher Timers
@@ -22,6 +23,7 @@ def node_init(self):
     self.match_status_timer = self.create_timer(timer_period, self.match_status_timer_callback)
     self.match_position_timer = self.create_timer(1, self.match_position_timer_callback)
     self.filtered_image_timer = self.create_timer(timer_period, self.filtered_image_timer_callback)
+    self.pose_fusion_timer = self.create_timer(timer_period, self.pose_fusion_timer_callback)
 
 #* CALLBACKS
 
@@ -167,8 +169,12 @@ def velocity_callback(self, data):
     velocity = data
     
 def imu_callback(self, data):
-    global imu
+    global imu, R
     imu = data
+    R = tf_transformations.quaternion_matrix([imu.orientation.x,imu.orientation.y,imu.orientation.z,imu.orientation.w])
+    # orientation = np.matmul(R[0:3, 0:3], X)
+    # orientation_unit = orientation/np.linalg.norm(orientation)
+
 
 #* PUBLISHER CALLBACKS
 
@@ -193,5 +199,40 @@ def filtered_image_timer_callback(self):
     global filtered_img
     self.filtered_image_pub.publish(filtered_img)
 
+def pose_fusion_timer_callback(self):
+
+    ''' WORK IN PROGRESS (POSE FUSER) '''
+
+    global estimated_pose, fused_pose, ekf_output, velocity, matched_pose
+    global delta_t, initial_time, current_time, v, R, rotated_vector_in_global_frame
+
+    v = 0.0
+    a = math.pi/2
+    X = [1, 0, 0]
+
+    current_time = datetime.now()
+
+    # if abs(imu.linear_acceleration.x <= 0.05):
+    #     imu.linear_acceleration.x = 0.0
+
+    delta_t = (current_time - initial_time).total_seconds()
+    yaw_change = velocity.angular.z * delta_t
+    rotated_vector_in_bot_frame = rotateVector(X, yaw_change) * (velocity.linear.x * delta_t)
+    rotated_vector_in_global_frame += np.matmul(R[0:3,0:3], rotated_vector_in_bot_frame)
+    print(rotated_vector_in_global_frame)
+    # v += imu.linear_acceleration.x * delta_t
+    initial_time = datetime.now()
+    self.fused_position_pub.publish(fused_pose)
+
 
 #* FUNCTIONS
+
+def rotateVector(vector, theta):
+    R = tf_transformations.rotation_matrix(theta, [0,0,1])
+    return np.matmul(R[0:3, 0:3], vector)
+
+def angle_between(v1, v2):
+    v1_u = v1/np.linalg.norm(v1)
+    v2_u = v2/np.linalg.norm(v2)
+    return np.arccos(np.clip(np.dot(v1_u, v2_u), -10.0, 10.0))
+
